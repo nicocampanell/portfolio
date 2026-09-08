@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#efefef" />
+  <meta name="description" content="Nico Campanell — designer at the intersection of design, data, and innovation. Informatics at UT Austin." />
+  <title>Nico Campanell</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    @font-face {
+      font-family: Sohne;
+      src: local("Test Söhne Buch"), local("TestSohne-Buch"), url("assets/fonts/sohne-buch.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: Sohne;
+      src: local("Test Söhne Kräftig"), local("TestSohne-Kraftig"), url("assets/fonts/sohne-kraftig.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --accent: #fc671e;
+      --cream: #faf9f7;
+      --page: #efefef;
+      --ink: #1f1a17;
+      --muted: #5c544e;
+      --caption: #7a716a;
+      --screen: #d9d9d9;
+      --card: 896px;
+      --panel: 582.4px;
+      --inset: 161px;
+      --gap: 71px;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+      --ease-camera: cubic-bezier(0, 0.55, 0.45, 1);
+      --zoom-min: 0.734;
+      --bleed-x: calc((100vw / var(--zoom-min) - 100vw) / 2);
+      --bleed-y: calc((100dvh / var(--zoom-min) - 100dvh) / 2);
+      --font: Sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-synthesis: none;
+    }
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: var(--page);
+      color: var(--ink);
+      font-family: var(--font);
+      font-weight: 400;
+    }
+    body {
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: 0.18px;
+    }
+    ::selection { background: var(--accent); color: var(--cream); }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; }
+
+    .skip {
+      position: absolute;
+      inset-inline-start: 0.75rem;
+      top: 0.75rem;
+      z-index: 4;
+      padding: 0.5rem 0.75rem;
+      background: var(--ink);
+      color: var(--cream);
+      text-decoration: none;
+      transform: translateY(-200%);
+    }
+    .skip:focus { transform: none; }
+
+    .progress {
+      position: fixed;
+      z-index: 2;
+      inset: 0 0 auto;
+      height: 4px;
+      background: oklch(0 0 0 / 0.14);
+      pointer-events: none;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 100%;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    .decrypt-wrap {
+      display: inline-grid;
+      justify-items: start;
+    }
+    .decrypt-ghost, .decrypt { grid-area: 1 / 1; }
+    .decrypt-ghost { visibility: hidden; }
+    .decrypt { font-variant-numeric: tabular-nums; }
+    .decrypt.is-cipher { color: var(--caption); }
+    .hi .decrypt, .hi .decrypt.is-cipher { color: var(--accent); }
+
+    .viewport {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+    }
+    /* The stage is oversized by 1/--zoom-min and centred on the viewport, so a
+       fully zoomed-out camera still bleeds past every edge instead of framing. */
+    .stage {
+      width: calc(100vw / var(--zoom-min));
+      height: calc(100dvh / var(--zoom-min));
+      margin-inline-start: calc(-1 * var(--bleed-x));
+      margin-block-start: calc(-1 * var(--bleed-y));
+      transform: scale(var(--s, 1));
+      transform-origin: 50% 50%;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      #intro { animation: card-in 800ms var(--ease-camera) both; }
+      .intro-rise { animation: content-in 800ms 120ms var(--ease-camera) both; }
+      .card:not(#intro) { animation: card-fade 420ms 640ms var(--ease-out) both; }
+    }
+    @keyframes card-in {
+      from { transform: scale(0.5); }
+      to { transform: scale(1); }
+    }
+    @keyframes content-in {
+      from { opacity: 0; scale: 0.92; }
+      to { opacity: 1; scale: 1; }
+    }
+    @keyframes card-fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .deck {
+      height: 100%;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--gap);
+      padding-block: calc(125px + var(--bleed-y)) calc(85px + var(--bleed-y));
+      padding-inline-start: calc(var(--inset) + var(--bleed-x));
+      padding-inline-end: calc(max(var(--inset), 100vw - var(--card) - var(--inset)) + var(--bleed-x));
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: calc(var(--inset) + var(--bleed-x));
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+    }
+    .deck::-webkit-scrollbar { display: none; }
+    @media (prefers-reduced-motion: no-preference) {
+      .deck { scroll-behavior: smooth; }
+    }
+
+    .card {
+      flex: 0 0 var(--card);
+      width: var(--card);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transform-origin: 50% 50%;
+    }
+    .panel {
+      position: relative;
+      flex: 0 0 var(--panel);
+      height: var(--panel);
+      background: var(--cream);
+      overflow: clip;
+    }
+    .panel-grain,
+    .panel-paper {
+      position: absolute;
+      pointer-events: none;
+    }
+    .panel-grain {
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .panel-grain::before {
+      content: "";
+      position: absolute;
+      width: 638px;
+      height: 896px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      background: url("assets/textures/grain.jpg") center / cover no-repeat;
+      opacity: 0.46;
+    }
+    .panel-paper {
+      left: -18px;
+      top: -36px;
+      width: 960px;
+      height: 646px;
+      z-index: 4;
+      background: url("assets/textures/paper.png") center / cover no-repeat;
+      mix-blend-mode: hue;
+      opacity: 0.4;
+    }
+    .caption {
+      margin: 0;
+      color: var(--caption);
+      text-wrap: pretty;
+    }
+
+    .intro-panel { z-index: 0; }
+    .intro-layout {
+      position: absolute;
+      z-index: 1;
+      inset-inline-start: 38px;
+      top: 43px;
+      display: flex;
+      align-items: flex-end;
+      gap: 82px;
+      height: 497px;
+    }
+    .intro-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 369px;
+      height: 100%;
+      flex: none;
+    }
+    .intro-greeting {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .hi {
+      margin: 0;
+      color: var(--accent);
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 40px;
+      letter-spacing: -0.64px;
+    }
+    .name {
+      margin: 0;
+      width: 100%;
+      height: 43px;
+    }
+    .name-mark {
+      display: block;
+      width: 369px;
+      height: 43px;
+      pointer-events: none;
+    }
+    .intro-photo {
+      position: relative;
+      width: 369px;
+      height: 337px;
+      overflow: hidden;
+      flex: none;
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    .intro-photo img {
+      position: absolute;
+      width: 120.37%;
+      height: 175.61%;
+      left: -10.11%;
+      top: -41.85%;
+      max-width: none;
+      object-fit: cover;
+      opacity: 0.7;
+      pointer-events: none;
+      border: 0;
+    }
+    .intro-meta {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      margin: 0;
+      width: 28px;
+      height: 497px;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .intro-meta span {
+      color: #000;
+      font-size: 12px;
+      line-height: 28px;
+      letter-spacing: 0.12px;
+      opacity: 0.3; /* was 0.5 — turned down 20pp */
+      white-space: nowrap;
+      transform: rotate(90deg);
+      user-select: none;
+    }
+    .intro-bio {
+      position: relative;
+      width: 374px;
+      flex: none;
+      align-self: flex-end;
+      background: transparent;
+    }
+    .bio-lines {
+      position: absolute;
+      left: 0;
+      top: 45px;
+      width: 374px;
+      height: 168px;
+      pointer-events: none;
+      background: transparent;
+    }
+    .bio {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      width: 374px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 42px;
+      letter-spacing: 0.18px;
+      background: transparent;
+    }
+    .bio .decrypt-wrap {
+      display: grid;
+      width: 100%;
+      justify-items: stretch;
+      background: transparent;
+    }
+    .bio .decrypt-ghost,
+    .bio .decrypt {
+      width: 100%;
+      white-space: pre;
+      overflow-wrap: normal;
+    }
+    .stamp {
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+      max-width: none;
+      border: 0;
+      background: transparent;
+    }
+    .stamp-postage {
+      left: 667px;
+      top: 12px;
+      width: 229px;
+      height: 139px;
+      object-fit: contain;
+    }
+    .stamp-postmark {
+      left: 290px;
+      top: 370px;
+      width: 210px;
+      height: 190px;
+      object-fit: contain;
+      rotate: 7.73deg;
+      opacity: 0.3;
+    }
+
+    .lettering {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      max-width: none;
+      border: 0;
+      background: transparent;
+      opacity: 0.8; /* turned down 20% from full */
+      mix-blend-mode: multiply; /* kills residual white boxes behind glyphs */
+    }
+    .lettering-projects {
+      left: -10px;
+      top: auto;
+      bottom: -12px;
+      width: 916px;
+      height: auto;
+    }
+    .lettering-playground {
+      left: 50%;
+      top: 50%;
+      width: 802px;
+      height: auto;
+      transform: translate(-50%, -48%);
+    }
+    .lettering-about {
+      left: 16px;
+      top: auto;
+      bottom: 0;
+      width: 863px;
+      height: auto;
+    }
+
+    .screens { position: relative; z-index: 1; }
+    .screen {
+      position: absolute;
+      width: 487px;
+      height: 252px;
+      background: var(--screen);
+      outline: 1px solid oklch(0 0 0 / 0.1);
+      pointer-events: none;
+    }
+    .screen:nth-child(1) { top: -40px; inset-inline-start: -83px; rotate: -13.04deg; }
+    .screen:nth-child(2) { top: 110px; inset-inline-start: 521px; rotate: 14.07deg; }
+    .screen:nth-child(3) { top: 337px; inset-inline-start: -11px; rotate: -13.53deg; }
+
+    .contact {
+      background: var(--accent);
+      position: relative;
+    }
+    .contact a {
+      position: absolute;
+      font-size: 70px;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      text-decoration: none;
+      text-align: center;
+      color: var(--cream);
+      width: max-content;
+      transform: translateX(-50%);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      text-underline-position: from-font;
+      text-decoration-thickness: from-font;
+    }
+    .contact a:nth-child(1) { left: 160px; top: 198px; }
+    .contact a:nth-child(2) { left: 232px; top: 291px; }
+    .contact a:nth-child(3) { left: 53px; top: 383px; }
+    .contact a:nth-child(4) { left: 134.5px; top: 467px; }
+    @media (hover: hover) {
+      .contact a:hover { text-decoration: underline; }
+    }
+    .contact a:active { scale: 0.96; }
+    .contact a:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px var(--cream);
+    }
+
+    .panel-link {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+    .panel-link:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 3px var(--accent);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .contact a { transition: text-decoration-color 160ms var(--ease-out), scale 120ms var(--ease-out); }
+    }
+
+    @media (max-width: 54rem) {
+      :root { --inset: 24px; --card: calc(100vw - 48px); --panel: min(582px, 70dvh); --gap: 48px; }
+      html, body { height: auto; overflow: visible; }
+      .viewport { position: static; inset: auto; overflow: visible; }
+      .stage { width: auto; height: auto; margin: 0; transform: none; }
+      #intro, .intro-rise, .card:not(#intro) { animation: none; }
+      .deck {
+        height: auto;
+        min-height: 100dvh;
+        flex-direction: column;
+        overflow: visible;
+        padding: 72px 24px calc(100dvh - 72px - var(--panel));
+        scroll-snap-type: none;
+      }
+      .card { scroll-margin-block-start: 72px; scroll-margin-top: 56px; }
+      .panel { flex: none; height: auto; min-height: var(--panel); }
+      .panel-grain::before { width: 100%; height: 140%; }
+      .panel-paper { width: 120%; height: 120%; left: -10%; top: -10%; }
+      .intro-layout {
+        position: relative;
+        inset: auto;
+        top: auto;
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+        padding: 28px 24px 32px;
+      }
+      .intro-left { width: 100%; height: auto; gap: 1.25rem; }
+      .name-mark { width: 100%; height: auto; }
+      .intro-meta {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: auto;
+        height: auto;
+        order: 3;
+        margin-block: 0.5rem;
+      }
+      .intro-meta span {
+        transform: none;
+        white-space: normal;
+        text-wrap: pretty;
+        display: block;
+        opacity: 0.3;
+      }
+      .intro-bio { width: 100%; }
+      .bio, .bio-lines { width: 100%; }
+      .stamp-postage { width: 140px; height: auto; left: auto; inset-inline-end: 16px; top: 16px; }
+      .stamp-postmark { left: auto; right: 24px; top: auto; bottom: 24px; width: 140px; height: auto; }
+      .screens { height: var(--panel); }
+      .lettering-projects,
+      .lettering-playground,
+      .lettering-about {
+        left: 50%;
+        right: auto;
+        width: min(100%, 860px);
+        transform: translateX(-50%);
+      }
+      .lettering-projects { top: auto; bottom: 16px; }
+      .lettering-playground { top: 50%; bottom: auto; transform: translate(-50%, -50%); }
+      .lettering-about { top: auto; bottom: 16px; }
+      .contact { min-height: var(--panel); }
+      .contact a {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        transform: none;
+        display: block;
+        font-size: clamp(32px, 12vw, 56px);
+        text-align: start;
+        padding: 0.15em 24px;
+      }
+      .contact a:first-child { padding-top: 2rem; }
+      .contact a:last-child { padding-bottom: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    THESIS: A horizontal room of work, not a stacked resume.
+    OWN-WORLD: Warm gray floor, cream panels, Söhne, one orange square.
+    STORY: Meet Nico, then walk the work from left to right.
+    FIRST VIEWPORT: Intro starts full-bleed, eases into the framed card; a line fills at the top.
+    FORM: Figma Portfolio / MacBook Air - 3 (499:283).
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip" href="#intro">Skip to content</a>
+
+  <div class="progress" role="progressbar" aria-label="Portfolio progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="progress-fill"></div>
+  </div>
+
+  <div class="viewport">
+  <div class="stage">
+  <main class="deck" tabindex="0" aria-label="Portfolio">
+    <article class="card" id="intro">
+      <div class="panel intro-panel">
+        <div class="panel-grain" aria-hidden="true"></div>
+        <div class="intro-layout intro-rise">
+          <div class="intro-left">
+            <div class="intro-greeting">
+              <p class="hi">
+                <span class="sr-only">Hi I’m,</span>
+                <span class="decrypt-wrap" aria-hidden="true">
+                  <span class="decrypt-ghost">Hi I’m,</span>
+                  <span class="decrypt" data-text="Hi I’m,">Hi I’m,</span>
+                </span>
+              </p>
+              <h1 class="name">
+                <span class="sr-only">Nico Campanell</span>
+                <img class="name-mark" src="assets/intro/name.svg" width="369" height="43" alt="" aria-hidden="true" />
+              </h1>
+            </div>
+            <div class="intro-photo">
+              <img src="assets/intro/portrait.png" width="444" height="406" alt="Portrait of Nico Campanell in front of a bridge at night" />
+            </div>
+          </div>
+          <div class="intro-bio">
+            <img class="bio-lines" src="assets/intro/bio-lines.svg" width="369" height="169" alt="" aria-hidden="true" />
+            <p class="bio">
+              <span class="sr-only">I’m a Junior at UT Austin studying Informatics concentrating in UX Design &amp; Data Science. I hope to craft meaningful and human products at the intersection of design, data, and innovation!</span>
+              <span class="decrypt-wrap" aria-hidden="true">
+                <span class="decrypt-ghost">I’m a Junior at UT Austin studying Informatics
+concentrating in UX Design &amp; Data Science. I
+hope to craft meaningful and human
+products at the intersection of design, data,
+and innovation!</span>
+                <span class="decrypt" data-text="I’m a Junior at UT Austin studying Informatics|concentrating in UX Design & Data Science. I|hope to craft meaningful and human|products at the intersection of design, data,|and innovation!">I’m a Junior at UT Austin studying Informatics
+concentrating in UX Design &amp; Data Science. I
+hope to craft meaningful and human
+products at the intersection of design, data,
+and innovation!</span>
+              </span>
+            </p>
+          </div>
+        </div>
+        <p class="intro-meta" aria-hidden="true"><span>made with figma, next.js &amp; curosr - based in atx -  product designer - informatics @ ut austin</span></p>
+        <img class="stamp stamp-postage" src="assets/stamps/postage.png" width="196" height="133" alt="" aria-hidden="true" />
+        <img class="stamp stamp-postmark" src="assets/stamps/postmark.png" width="190" height="172" alt="" aria-hidden="true" />
+        <div class="panel-paper" aria-hidden="true"></div>
+      </div>
+      <p class="caption">Intro</p>
+    </article>
+
+    <section class="card" id="projects" aria-labelledby="projects-caption">
+      <div class="panel">
+        <div class="panel-grain" aria-hidden="true"></div>
+        <img class="lettering lettering-projects" src="assets/lettering/projects.png" width="916" height="229" alt="" />
+        <div class="panel-paper" aria-hidden="true"></div>
+      </div>
+      <p class="caption" id="projects-caption">My Projects</p>
+    </section>
+
+    <article class="card" id="tacki-1">
+      <div class="panel screens" aria-hidden="true">
+        <div class="panel-grain" aria-hidden="true"></div>
+        <span class="screen"></span><span class="screen"></span><span class="screen"></span>
+        <div class="panel-paper" aria-hidden="true"></div>
+      </div>
+      <p class="caption">TACKI - Student Service Marketplace</p>
+    </article>
+    <article class="card" id="tacki-2">
+      <div class="panel screens" aria-hidden="true">
+        <div class="panel-grain" aria-hidden="true"></div>
+        <span class="screen"></span><span class="screen"></span><span class="screen"></span>
+        <div class="panel-paper" aria-hidden="true"></div>
+      </div>
+      <p class="caption">TACKI - Student Service Marketplace</p>
+    </article>
+    <article class="card" id="tacki-3">
+      <div class="panel screens" aria-hidden="true">
+        <div class="panel-grain" aria-hidden="true"></div>
+        <span class="screen"></span><span class="screen"></span><span class="screen"></span>
+        <div class="panel-paper" aria-hidden="true"></div>
+      </div>
+      <p class="caption">TACKI - Student Service Marketplace</p>
+    </article>
+
+    <article class="card" id="playground">
+      <a class="panel panel-link" href="cell-form.html" aria-label="Open playground">
+        <div class="panel-grain" aria-hidden="true"></div>
+        <img class="lettering lettering-playground" src="assets/lettering/playground.png" width="817" height="320" alt="" />
+        <div class="panel-paper" aria-hidden="true"></div>
+      </a>
+      <p class="caption">Playground</p>
+    </article>
+
+    <section class="card" id="about" aria-labelledby="about-caption">
+      <div class="panel">
+        <div class="panel-grain" aria-hidden="true"></div>
+        <img class="lettering lettering-about" src="assets/lettering/about.png" width="863" height="192" alt="" />
+        <div class="panel-paper" aria-hidden="true"></div>
+      </div>
+      <p class="caption" id="about-caption">About</p>
+    </section>
+
+    <section class="card" id="contact" aria-labelledby="contact-caption">
+      <nav class="panel contact" aria-label="Social">
+        <a href="https://github.com/nicocampanell" rel="me">GitHub</a>
+        <a href="https://www.instagram.com/nicocampanell" rel="me">Instagram</a>
+        <a href="https://x.com/nicocampanell" rel="me">X</a>
+        <a href="mailto:nicocampanell@utexas.edu">Email</a>
+      </nav>
+      <p class="caption" id="contact-caption">Contact</p>
+    </section>
+  </main>
+  </div>
+  </div>
+
+  <script>
+    const deck = document.querySelector(".deck");
+    const stage = document.querySelector(".stage");
+    const fill = document.querySelector(".progress-fill");
+    const bar = document.querySelector(".progress");
+    const cards = [...deck.querySelectorAll(".card")];
+    const narrow = () => matchMedia("(max-width: 54rem)").matches;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const inset = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--inset"));
+    const SCALE_OUT = 0.734;
+    const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@";
+
+    const activeIndex = () => {
+      const mobile = narrow();
+      const target = mobile ? 72 : inset();
+      return cards.reduce((best, card, i) => {
+        const box = card.getBoundingClientRect();
+        const d = Math.abs((mobile ? box.top : box.left) - target);
+        return d < best.d ? { i, d } : best;
+      }, { i: 0, d: Infinity }).i;
+    };
+
+    const setProgress = () => {
+      const max = narrow()
+        ? document.documentElement.scrollHeight - innerHeight
+        : deck.scrollWidth - deck.clientWidth;
+      const p = max <= 0 ? 0 : Math.min(1, Math.max(0, (narrow() ? scrollY : deck.scrollLeft) / max));
+      fill.style.transform = `scaleX(${p})`;
+      bar.setAttribute("aria-valuenow", Math.round(p * 100));
+    };
+
+    const snapTo = (card) => {
+      if (!card) return;
+      if (narrow()) {
+        const y = card.getBoundingClientRect().top + scrollY - 72;
+        scrollTo({ top: Math.max(0, y), behavior: reduce ? "auto" : "smooth" });
+        return;
+      }
+      const lead = parseFloat(getComputedStyle(deck).paddingInlineStart);
+      deck.scrollTo({ left: card.offsetLeft - lead, behavior: reduce ? "auto" : "smooth" });
+    };
+
+    let cam = 1;
+    let camTarget = 1;
+    let ticking = false;
+
+    const zoomFromScroll = () => {
+      const css = getComputedStyle(document.documentElement);
+      const step = parseFloat(css.getPropertyValue("--card")) + parseFloat(css.getPropertyValue("--gap"));
+      return 1 + (SCALE_OUT - 1) * Math.min(1, deck.scrollLeft / step);
+    };
+
+    const tick = () => {
+      ticking = true;
+      cam += (camTarget - cam) * 0.08;
+      if (Math.abs(camTarget - cam) < 0.0004) cam = camTarget;
+      stage.style.setProperty("--s", cam);
+      if (cam !== camTarget) requestAnimationFrame(tick);
+      else ticking = false;
+    };
+
+    const followZoom = () => {
+      if (narrow() || reduce) return;
+      camTarget = zoomFromScroll();
+      if (!ticking) requestAnimationFrame(tick);
+    };
+
+    const decrypt = (el, delay, sequential) => {
+      const text = el.dataset.text.replaceAll("|", "\n");
+      el.classList.add("is-cipher");
+      const scramble = () => Array.from(text, (ch) => (ch === " " || ch === "\n" || !/\p{L}/u.test(ch) ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join("");
+      el.textContent = scramble();
+      if (sequential) {
+        let revealed = 0;
+        const step = () => {
+          revealed += 1;
+          el.textContent = Array.from(text, (ch, i) => (ch === " " || ch === "\n" || i < revealed || !/\p{L}/u.test(ch) ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join("");
+          if (revealed < text.length) setTimeout(step, 40);
+          else el.classList.remove("is-cipher");
+        };
+        setTimeout(step, delay);
+        return;
+      }
+      let n = 0;
+      const step = () => {
+        n += 1;
+        if (n >= 12) {
+          el.textContent = text;
+          el.classList.remove("is-cipher");
+          return;
+        }
+        el.textContent = scramble();
+        setTimeout(step, 40);
+      };
+      setTimeout(step, delay);
+    };
+
+    if (!reduce) {
+      const lines = [...document.querySelectorAll(".decrypt")];
+      decrypt(lines[0], 200, true);
+      decrypt(lines[1], 340, false);
+    }
+
+    document.querySelector(".skip").addEventListener("click", (event) => {
+      event.preventDefault();
+      snapTo(document.getElementById("intro"));
+    });
+
+    deck.addEventListener("wheel", (event) => {
+      if (narrow()) return;
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+      event.preventDefault();
+      deck.scrollLeft += event.deltaY;
+    }, { passive: false });
+
+    deck.addEventListener("keydown", (event) => {
+      const i = activeIndex();
+      const go = { ArrowRight: Math.min(i + 1, cards.length - 1), ArrowLeft: Math.max(i - 1, 0), Home: 0, End: cards.length - 1 }[event.key];
+      if (go == null) return;
+      event.preventDefault();
+      snapTo(cards[go]);
+    });
+
+    deck.addEventListener("scroll", () => { setProgress(); followZoom(); }, { passive: true });
+    addEventListener("scroll", () => { if (narrow()) setProgress(); }, { passive: true });
+    setProgress();
+  </script>
+
+  <!-- Agentation toolbar: localhost-only, syncs to agentation-mcp on :4747 -->
+  <script type="module">
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+      try {
+        const [{ default: React }, { createRoot }, { Agentation }] = await Promise.all([
+          import("https://esm.sh/react@18.3.1"),
+          import("https://esm.sh/react-dom@18.3.1/client"),
+          import("https://esm.sh/agentation@3.0.2?deps=react@18.3.1,react-dom@18.3.1"),
+        ]);
+        const mount = document.createElement("div");
+        mount.id = "agentation-mount";
+        document.body.appendChild(mount);
+        createRoot(mount).render(
+          React.createElement(Agentation, { endpoint: "http://localhost:4747" })
+        );
+      } catch (error) {
+        console.warn("Agentation load failed:", error);
+      }
+    }
+  </script>
+</body>
+</html>
