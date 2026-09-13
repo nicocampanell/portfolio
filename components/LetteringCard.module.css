@@ -1,0 +1,66 @@
+.lettering {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  max-width: none;
+  height: auto;
+  border: 0;
+  background: transparent;
+  opacity: 1;
+  /* shape-rendering helps keep big wordmarks crisp on retina */
+  shape-rendering: geometricPrecision;
+}
+
+.projects {
+  left: 5px;
+  top: auto;
+  bottom: -12px;
+  width: 920px;
+}
+
+.playground {
+  left: 50%;
+  top: 57%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.about {
+  left: -15px;
+  top: auto;
+  bottom: -14px;
+  width: 950px;
+}
+
+@media (max-width: 54rem) {
+  .projects,
+  .playground,
+  .about {
+    left: 50%;
+    right: auto;
+    width: min(100%, 860px);
+    transform: translateX(-50%);
+  }
+
+  .projects {
+    top: auto;
+    bottom: 16px;
+  }
+
+  .playground {
+    top: 50%;
+    bottom: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+  .about {
+    top: auto;
+    bottom: 8px;
+  }
+}

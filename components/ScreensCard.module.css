@@ -1,0 +1,24 @@
+.screens {
+  position: relative;
+  z-index: 1;
+}
+
+.screen {
+  position: absolute;
+  width: 487px;
+  height: 252px;
+  background: var(--screen);
+  outline: 1px solid oklch(0 0 0 / 0.1);
+  pointer-events: none;
+}
+
+/* nth-of-type, not nth-child: Panel inserts grain/paper divs around these spans. */
+.screen:nth-of-type(1) { top: -40px; inset-inline-start: -83px; rotate: -13.04deg; }
+.screen:nth-of-type(2) { top: 110px; inset-inline-start: 521px; rotate: 14.07deg; }
+.screen:nth-of-type(3) { top: 337px; inset-inline-start: -11px; rotate: -13.53deg; }
+
+@media (max-width: 54rem) {
+  .screens {
+    height: var(--panel);
+  }
+}

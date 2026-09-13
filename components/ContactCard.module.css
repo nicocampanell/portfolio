@@ -1,0 +1,66 @@
+.contact {
+  background: var(--accent);
+  position: relative;
+}
+
+.contact a {
+  position: absolute;
+  font-size: 70px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--cream);
+  width: max-content;
+  transform: translateX(-50%);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contact a:nth-of-type(1) { left: 160px; top: 198px; }
+.contact a:nth-of-type(2) { left: 232px; top: 291px; }
+.contact a:nth-of-type(3) { left: 53px; top: 383px; }
+.contact a:nth-of-type(4) { left: 134.5px; top: 467px; }
+
+.contact a:active {
+  scale: 0.96;
+}
+
+.contact a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px var(--cream);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact a {
+    transition:
+      background-size var(--underline-ms, 200ms) var(--ease-camera),
+      scale 120ms var(--ease-out);
+  }
+}
+
+@media (max-width: 54rem) {
+  .contact {
+    min-height: var(--panel);
+  }
+
+  .contact a {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    transform: none;
+    display: block;
+    font-size: clamp(32px, 12vw, 56px);
+    text-align: start;
+    padding: 0.15em 24px;
+  }
+
+  .contact a:first-of-type {
+    padding-top: 2rem;
+  }
+
+  .contact a:last-of-type {
+    padding-bottom: 1.5rem;
+  }
+}

@@ -1,0 +1,182 @@
+:root {
+  --accent: #fc671e;
+  --cream: #faf9f7;
+  --card-bg: #faf9f7;
+  --page: #faf9f7;
+  --ink: #1f1a17;
+  --muted: #5c544e;
+  --caption: #7a716a;
+  --screen: #d9d9d9;
+  --card: 896px;
+  --panel: 582.4px;
+  --inset: 161px;
+  --gap: 71px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  /* Motion UI snap spring (stiffness 1218, damping 70); keep in sync with lib/ease.ts CAMERA_S */
+  --camera-ms: 500ms;
+  --ease-camera: linear(
+    0,
+    0.104,
+    0.298,
+    0.487,
+    0.642,
+    0.757,
+    0.839,
+    0.895,
+    0.933,
+    0.958,
+    0.974,
+    0.984,
+    0.991,
+    0.995,
+    0.997,
+    0.999,
+    1
+  );
+  --font: var(--font-sohne), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+body {
+  font-size: 14px;
+  line-height: 28px;
+  letter-spacing: 0.18px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--cream);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* Text links: underline draws left → right; weight + timing scale with type size */
+.u-link {
+  --underline: max(1px, 0.06em);
+  /* ~120ms + 2.2ms per px of font-size → body ~155ms, 70px display ~274ms */
+  --underline-ms: calc(120ms + tan(atan2(1em, 1px)) * 2.2ms);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% var(--underline);
+  transition: background-size var(--underline-ms) var(--ease-camera);
+}
+
+@media (hover: hover) {
+  .u-link:hover {
+    background-size: 100% var(--underline);
+  }
+}
+
+.u-link:focus-visible {
+  background-size: 100% var(--underline);
+}
+
+@supports not (transition-duration: calc(tan(atan2(1em, 1px)) * 1ms)) {
+  .u-link {
+    --underline-ms: 200ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u-link {
+    transition: none;
+  }
+
+  @media (hover: hover) {
+    .u-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.12em;
+      text-decoration-thickness: max(1px, 0.06em);
+      background-image: none;
+    }
+  }
+
+  .u-link:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+    text-decoration-thickness: max(1px, 0.06em);
+    background-image: none;
+  }
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+.skip {
+  position: absolute;
+  inset-inline-start: 0.75rem;
+  top: 0.75rem;
+  z-index: 4;
+  padding: 0.5rem 0.75rem;
+  background: var(--ink);
+  color: var(--cream);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 54rem) {
+  :root {
+    --inset: 24px;
+    --card: calc(100vw - 48px);
+    --panel: min(582px, 70dvh);
+    --gap: 48px;
+  }
+
+  html,
+  body {
+    height: auto;
+    overflow: visible;
+  }
+}

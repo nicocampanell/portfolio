@@ -1,0 +1,98 @@
+.viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.deck {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  scrollbar-width: none;
+  padding-block: 125px 85px;
+  padding-inline-start: var(--inset);
+  padding-inline-end: max(var(--inset), 100vw - var(--card) - var(--inset));
+}
+
+.deck::-webkit-scrollbar {
+  display: none;
+}
+
+/* Unscaled scroll world: grid lives here so camera zoom does not shrink it. */
+.scene {
+  position: relative;
+  width: max-content;
+  height: 100%;
+}
+
+.grid {
+  position: absolute;
+  z-index: 0;
+  top: -125px;
+  bottom: -85px;
+  left: calc(-1 * var(--inset));
+  right: calc(-1 * max(var(--inset), 100vw - var(--card) - var(--inset)));
+  pointer-events: none;
+  opacity: 0.15;
+  background: url("/textures/grid.webp") 0 0 / 600px 793px repeat;
+}
+
+.track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap);
+  height: 100%;
+  width: max-content;
+  transform: scale(var(--s, 1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck {
+    overflow-x: auto;
+    overflow-y: hidden;
+    touch-action: pan-x;
+  }
+
+  .track {
+    transform: none;
+  }
+}
+
+@media (max-width: 54rem) {
+  .viewport {
+    position: static;
+    inset: auto;
+    overflow: visible;
+  }
+
+  .deck {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+    touch-action: auto;
+    padding: 72px 24px calc(100dvh - 72px - var(--panel));
+  }
+
+  .scene {
+    width: auto;
+    height: auto;
+  }
+
+  .track {
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    transform: none;
+  }
+
+  .grid {
+    top: -72px;
+    bottom: calc(-1 * (100dvh - 72px - var(--panel)));
+    left: -24px;
+    right: -24px;
+  }
+}

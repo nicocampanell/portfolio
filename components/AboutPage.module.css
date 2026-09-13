@@ -1,0 +1,404 @@
+.shell {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--ink);
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.inner {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 64px 48px 20px;
+}
+
+.inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.15;
+  background: url("/textures/grid.webp") 0 0 / 600px 793px repeat;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 200px;
+  width: min(1184px, 100%);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  width: min(614px, 100%);
+  perspective: 900px;
+}
+
+.rest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  width: 100%;
+}
+
+/* Captions / mono: 16 / 24 / 0.16 — matches Figma Söhne Mono Buch */
+.mono {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.16px;
+}
+
+/* Body: 16 / 28 / 0.16 — matches Figma Söhne Buch */
+.body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.16px;
+}
+
+.crumb {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  color: var(--caption);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.crumb a {
+  justify-self: end;
+  color: inherit;
+  text-transform: uppercase;
+}
+
+.crumb a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--accent);
+}
+
+.chevron {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  justify-self: center;
+}
+
+.here {
+  justify-self: start;
+  color: var(--ink);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.hi {
+  margin: 0;
+  color: var(--ink);
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 0;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.bio p {
+  margin: 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.head::after {
+  content: "";
+  flex: 1 0 0;
+  min-width: 1px;
+  border-block-start: 1px solid rgb(0 0 0 / 0.12);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.org {
+  color: var(--muted);
+}
+
+.role {
+  color: var(--caption);
+}
+
+.when {
+  flex: none;
+  color: var(--caption);
+  white-space: nowrap;
+}
+
+.hello {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+}
+
+.hello a {
+  color: inherit;
+}
+
+.hello a:focus-visible,
+.mail:focus-visible,
+.icons a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--accent);
+}
+
+.foot {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+
+.nico {
+  display: block;
+  width: 330.438px;
+  max-width: 28%;
+  height: auto;
+  flex: none;
+}
+
+.campanell {
+  display: block;
+  width: 827.159px;
+  max-width: calc(100% - 330.438px - 24px);
+  height: auto;
+  flex: none;
+}
+
+.meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  color: #000;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.contact p {
+  margin: 0;
+}
+
+.mail {
+  color: inherit;
+}
+
+.icons {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.icons a {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  overflow: clip;
+  color: inherit;
+}
+
+.icons img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  text-align: end;
+}
+
+.legal p {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-enter="rise"]) .rise {
+    opacity: 0;
+    translate: 0 16px;
+    animation: about-rise 340ms var(--ease-camera) both;
+  }
+
+  :global([data-enter="rise"]) .crumb.rise {
+    animation-delay: 0ms;
+  }
+
+  :global([data-enter="rise"]) .rest .rise:nth-child(1) {
+    animation-delay: 50ms;
+  }
+
+  :global([data-enter="rise"]) .rest .rise:nth-child(2) {
+    animation-delay: 100ms;
+  }
+
+  :global([data-enter="rise"]) .rest .rise:nth-child(3) {
+    animation-delay: 150ms;
+  }
+
+  :global([data-enter="rise"]) .rest .rise:nth-child(4) {
+    animation-delay: 200ms;
+  }
+
+  :global([data-enter="rise"]) .foot.rise {
+    animation-delay: 250ms;
+  }
+}
+
+@keyframes about-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (max-width: 54rem) {
+  .inner {
+    padding: 48px 24px 40px;
+  }
+
+  .page {
+    gap: 96px;
+  }
+
+  .main {
+    gap: 48px;
+    align-items: stretch;
+  }
+
+  .rest {
+    gap: 48px;
+  }
+
+  .row {
+    align-items: flex-start;
+  }
+
+  .left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .wordmark {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .nico,
+  .campanell {
+    width: 100%;
+    max-width: none;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .legal {
+    align-items: flex-start;
+    text-align: start;
+  }
+}

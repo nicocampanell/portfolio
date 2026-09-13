@@ -1,0 +1,254 @@
+.panel {
+  z-index: 0;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .panel {
+    animation:
+      intro-opacity var(--camera-ms) var(--ease-camera) both,
+      intro-rotate var(--camera-ms) var(--ease-camera) both,
+      intro-scale var(--camera-ms) var(--ease-camera) both;
+  }
+}
+
+@keyframes intro-opacity {
+  from { opacity: 0.15; }
+  to { opacity: 1; }
+}
+
+@keyframes intro-rotate {
+  from { rotate: 0deg; }
+  to { rotate: 1deg; }
+}
+
+@keyframes intro-scale {
+  from { scale: 1.4; }
+  to { scale: 1; }
+}
+
+/* Figma inset: top 14.78% / right 63.06% / bottom 1.37% / left 0 */
+.floral {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 14.78%;
+  width: 36.94%;
+  height: 83.85%;
+  max-width: none;
+  object-fit: contain;
+  object-position: left bottom;
+  opacity: 0.35;
+  pointer-events: none;
+  border: 0;
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+.layout {
+  position: absolute;
+  z-index: 1;
+  inset-inline-start: 35px;
+  top: 43px;
+  display: flex;
+  align-items: flex-end;
+  gap: 27px;
+  height: 497px;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 369px;
+  flex: none;
+  min-width: 0;
+}
+
+.role {
+  margin: 0;
+  width: 100%;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.16px;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  width: 100%;
+}
+
+.nico,
+.campanell {
+  display: block;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  border: 0;
+  background: transparent;
+}
+
+.nico {
+  width: 145.364px;
+  height: 60.763px;
+}
+
+.campanell {
+  width: 369px;
+  height: 60.763px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 497px;
+  margin: 0;
+  flex: none;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.meta span {
+  color: var(--caption);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.12px;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  user-select: none;
+  opacity: 0.30;
+}
+
+.bioWrap {
+  position: relative;
+  width: 369px;
+  flex: none;
+  background: transparent;
+}
+
+.bioLines {
+  position: absolute;
+  left: 0;
+  top: 42px;
+  width: 369px;
+  height: 85px;
+  pointer-events: none;
+  background: transparent;
+}
+
+.bio {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  width: 369px;
+  color: var(--caption);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 42px;
+  letter-spacing: 0.18px;
+  text-wrap: pretty;
+  background: transparent;
+}
+
+.stamp {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  max-width: none;
+  border: 0;
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+.postage {
+  left: 721px;
+  top: 18px;
+  width: 165px;
+  height: 112px;
+  object-fit: contain;
+}
+
+.texas {
+  left: 600px;
+  top: 123px;
+  width: 134.20px;
+  height: 132px;
+  object-fit: contain;
+  rotate: 16.9deg;
+  opacity: 0.45;
+}
+
+@media (max-width: 54rem) {
+  .panel {
+    animation: none;
+  }
+
+  .floral {
+    width: 55%;
+    height: 70%;
+    top: auto;
+    bottom: 8%;
+    opacity: 0.28;
+  }
+
+  .layout {
+    position: relative;
+    inset: auto;
+    top: auto;
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding: 28px 24px 32px;
+  }
+
+  .identity,
+  .bioWrap,
+  .bio,
+  .bioLines,
+  .campanell {
+    width: 100%;
+  }
+
+  .meta {
+    width: auto;
+    height: auto;
+    order: 3;
+    justify-content: flex-start;
+  }
+
+  .meta span {
+    writing-mode: horizontal-tb;
+    transform: none;
+    white-space: normal;
+    text-wrap: pretty;
+    line-height: 1.4;
+  }
+
+  .postage {
+    width: 120px;
+    height: auto;
+    left: auto;
+    inset-inline-end: 16px;
+    top: 16px;
+  }
+
+  .texas {
+    left: auto;
+    right: 28%;
+    top: 18%;
+    width: 86px;
+    height: auto;
+  }
+}

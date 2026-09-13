@@ -1,0 +1,85 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+
+.root[data-ready] {
+  opacity: 1;
+}
+
+.dot,
+.pill {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--accent);
+  border-radius: 9999px;
+  transform-origin: center;
+  user-select: none;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    opacity 160ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  /* Figma 16/44 pill scaled to 12px type (12/16) */
+  height: 33px;
+  padding: 6px 9px;
+  color: var(--cream);
+  opacity: 0;
+  /* grow from ~14px dot: 14/33 */
+  transform: translate(-50%, -50%) scale(0.424);
+  transition:
+    opacity 160ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.label {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.12px;
+  white-space: nowrap;
+}
+
+.root[data-mode="case"] .dot,
+.root[data-mode="meet"] .dot {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.root[data-mode="case"] .pill,
+.root[data-mode="meet"] .pill {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .pill {
+    transition: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-cursor="custom"],
+  :root[data-cursor="custom"] * {
+    cursor: none !important;
+  }
+}

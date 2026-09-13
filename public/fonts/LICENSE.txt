@@ -1,0 +1,7 @@
+Klim Type Foundry — Test Söhne (trial)
+
+These .woff2 files are trial fonts. Bundling them on a public production
+site (including a Vercel deploy) is not permitted under the trial license.
+
+Before going live: buy a production license from Klim, or replace Söhne
+with a licensed/open face and update app/layout.tsx.

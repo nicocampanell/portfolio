@@ -1,9 +1,7 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="369" height="169" viewBox="0 0 369 169" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Bio Lines Container">
-<line id="Line 43" y1="0.5" x2="369" y2="0.5" stroke="#7A716A"/>
-<line id="Line 44" y1="42.5" x2="369" y2="42.5" stroke="#7A716A"/>
-<line id="Line 47" y1="84.5" x2="369" y2="84.5" stroke="#7A716A"/>
-<line id="Line 48" y1="126.5" x2="369" y2="126.5" stroke="#7A716A"/>
-<line id="Line 46" y1="168.5" x2="369" y2="168.5" stroke="#7A716A"/>
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="369" height="85" viewBox="0 0 369 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Lines Container">
+<line id="Line 47" y1="0.5" x2="369" y2="0.5" stroke="#7A716A"/>
+<line id="Line 48" y1="42.5" x2="369" y2="42.5" stroke="#7A716A"/>
+<line id="Line 46" y1="84.5" x2="369" y2="84.5" stroke="#7A716A"/>
 </g>
 </svg>

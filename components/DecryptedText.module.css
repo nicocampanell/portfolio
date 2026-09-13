@@ -1,0 +1,40 @@
+.wrap {
+  display: inline-grid;
+  justify-items: start;
+  max-width: 100%;
+}
+
+.ghost,
+.text {
+  grid-area: 1 / 1;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Holds the final metrics so the scramble cannot reflow the line. */
+.ghost {
+  visibility: hidden;
+}
+
+.text {
+  font-variant-numeric: tabular-nums;
+}
+
+.cipher {
+  color: var(--decrypt-cipher, var(--caption));
+}
+
+/* Multi-line variant: stretches to the column and honours the authored breaks. */
+.block {
+  display: grid;
+  width: 100%;
+  justify-items: stretch;
+  background: transparent;
+}
+
+.block .ghost,
+.block .text {
+  width: 100%;
+  white-space: pre;
+  overflow-wrap: normal;
+}
