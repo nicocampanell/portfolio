@@ -168,10 +168,10 @@ button {
 
 @media (max-width: 54rem) {
   :root {
-    --inset: 24px;
+    --inset: max(24px, env(safe-area-inset-left, 0px));
     --card: calc(100vw - 48px);
-    --panel: min(582px, 70dvh);
-    --gap: 48px;
+    --panel: min(520px, 68dvh);
+    --gap: 40px;
   }
 
   html,

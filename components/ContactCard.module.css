@@ -43,6 +43,11 @@
 @media (max-width: 54rem) {
   .contact {
     min-height: var(--panel);
+    overflow: clip;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 0.5rem;
   }
 
   .contact a {
@@ -54,6 +59,8 @@
     font-size: clamp(32px, 12vw, 56px);
     text-align: start;
     padding: 0.15em 24px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .contact a:first-of-type {

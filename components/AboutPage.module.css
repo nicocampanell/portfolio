@@ -353,21 +353,33 @@
 }
 
 @media (max-width: 54rem) {
+  .shell {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .inner {
-    padding: 48px 24px 40px;
+    padding:
+      max(48px, env(safe-area-inset-top, 0px))
+      max(24px, env(safe-area-inset-right, 0px))
+      max(40px, env(safe-area-inset-bottom, 0px))
+      max(24px, env(safe-area-inset-left, 0px));
   }
 
   .page {
     gap: 96px;
+    overflow: visible;
   }
 
   .main {
     gap: 48px;
     align-items: stretch;
+    min-width: 0;
   }
 
   .rest {
     gap: 48px;
+    min-width: 0;
   }
 
   .row {
@@ -384,12 +396,14 @@
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
+    max-width: 100%;
   }
 
   .nico,
   .campanell {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
+    height: auto;
   }
 
   .meta {

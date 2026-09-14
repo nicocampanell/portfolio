@@ -11,13 +11,6 @@
   shape-rendering: geometricPrecision;
 }
 
-.projects {
-  left: 5px;
-  top: auto;
-  bottom: -12px;
-  width: 920px;
-}
-
 .playground {
   left: 50%;
   top: 57%;
@@ -36,31 +29,26 @@
 }
 
 @media (max-width: 54rem) {
-  .projects,
   .playground,
   .about {
     left: 50%;
     right: auto;
-    width: min(100%, 860px);
+    width: auto;
+    max-width: 92%;
+    max-height: 70%;
+    height: auto;
+    object-fit: contain;
     transform: translateX(-50%);
-  }
-
-  .projects {
-    top: auto;
-    bottom: 16px;
   }
 
   .playground {
     top: 50%;
     bottom: auto;
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
     transform: translate(-50%, -50%);
   }
 
   .about {
     top: auto;
-    bottom: 8px;
+    bottom: 4%;
   }
 }

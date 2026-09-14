@@ -192,13 +192,15 @@
 @media (max-width: 54rem) {
   .panel {
     animation: none;
+    /* Keep cream edge while stamps sit in padding; children stay in-flow */
+    overflow: clip;
   }
 
   .floral {
     width: 55%;
-    height: 70%;
+    height: 55%;
     top: auto;
-    bottom: 8%;
+    bottom: 4%;
     opacity: 0.28;
   }
 
@@ -209,8 +211,9 @@
     height: auto;
     flex-direction: column;
     align-items: stretch;
-    gap: 1.5rem;
-    padding: 28px 24px 32px;
+    gap: 1.25rem;
+    padding: 5.5rem 1.25rem 1.75rem;
+    min-width: 0;
   }
 
   .identity,
@@ -219,6 +222,33 @@
   .bioLines,
   .campanell {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .nico {
+    width: min(145px, 40%);
+    height: auto;
+  }
+
+  .campanell {
+    height: auto;
+  }
+
+  .role {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .bio {
+    font-size: clamp(0.9375rem, 3.8vw, 1.125rem);
+    line-height: 1.75;
+  }
+
+  .bioLines {
+    top: 0.5rem;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 369 / 85;
   }
 
   .meta {
@@ -237,18 +267,19 @@
   }
 
   .postage {
-    width: 120px;
+    width: min(7.5rem, 32%);
     height: auto;
     left: auto;
-    inset-inline-end: 16px;
-    top: 16px;
+    inset-inline-end: 1rem;
+    top: 1rem;
   }
 
   .texas {
     left: auto;
-    right: 28%;
-    top: 18%;
-    width: 86px;
+    right: 1rem;
+    top: 5.25rem;
+    width: min(4.75rem, 22%);
     height: auto;
+    rotate: 10deg;
   }
 }

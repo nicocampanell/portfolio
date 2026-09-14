@@ -5,7 +5,7 @@ export type Card =
       id: string;
       caption: string;
       art: string;
-      variant: "projects" | "playground" | "about";
+      variant: "playground" | "about";
       href?: string;
     }
   | { kind: "screens"; id: string; caption: string }
@@ -13,13 +13,6 @@ export type Card =
 
 export const cards: Card[] = [
   { kind: "intro" },
-  {
-    kind: "lettering",
-    id: "projects",
-    caption: "My Projects",
-    art: "/lettering/projects.svg",
-    variant: "projects",
-  },
   { kind: "screens", id: "tacki-1", caption: "TACKI - Student Service Marketplace" },
   { kind: "screens", id: "tacki-2", caption: "TACKI - Student Service Marketplace" },
   { kind: "screens", id: "tacki-3", caption: "TACKI - Student Service Marketplace" },

@@ -57,6 +57,8 @@
     flex: none;
     height: auto;
     min-height: var(--panel);
+    /* Allow stamp/lettering/screen bleeds + focus zoom to paint outside the cream edge */
+    overflow: visible;
   }
 
   .grain::before {

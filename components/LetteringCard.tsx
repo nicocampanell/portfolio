@@ -6,7 +6,7 @@ import { TransitionLink } from "./TransitionLink";
 import panel from "./Panel.module.css";
 import s from "./LetteringCard.module.css";
 
-type Variant = "projects" | "playground" | "about";
+type Variant = "playground" | "about";
 
 type Props = {
   id: string;

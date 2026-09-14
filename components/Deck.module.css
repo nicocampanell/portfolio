@@ -74,12 +74,17 @@
     min-height: 100dvh;
     overflow: visible;
     touch-action: auto;
-    padding: 72px 24px calc(100dvh - 72px - var(--panel));
+    padding:
+      max(72px, env(safe-area-inset-top, 0px))
+      max(24px, env(safe-area-inset-right, 0px))
+      max(calc(100dvh - 72px - var(--panel)), env(safe-area-inset-bottom, 0px) + 48px)
+      max(24px, env(safe-area-inset-left, 0px));
   }
 
   .scene {
     width: auto;
     height: auto;
+    overflow: visible;
   }
 
   .track {
@@ -87,6 +92,7 @@
     width: auto;
     height: auto;
     transform: none;
+    overflow: visible;
   }
 
   .grid {
