@@ -1,8 +1,17 @@
 {
   "version": 1,
   "transcripts": {
+    "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/a6e68c8c-b545-4767-900a-ca9d3c335a7f/a6e68c8c-b545-4767-900a-ca9d3c335a7f.jsonl": {
+      "mtimeMs": 1788988858379.953
+    },
+    "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/a6e68c8c-b545-4767-900a-ca9d3c335a7f/subagents/6d6b50fd-bfa1-4d91-bcba-fe668e6091b3.jsonl": {
+      "mtimeMs": 1788925384760.4966
+    },
+    "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/a6e68c8c-b545-4767-900a-ca9d3c335a7f/subagents/c0fc12f2-d759-43ef-b453-fcdd2e56afe5.jsonl": {
+      "mtimeMs": 1788972029541.8604
+    },
     "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/bf708904-be1e-4d02-ba6a-8296505be60a/bf708904-be1e-4d02-ba6a-8296505be60a.jsonl": {
-      "mtimeMs": 1787963136726.6323
+      "mtimeMs": 1788988742101.2783
     },
     "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/bf708904-be1e-4d02-ba6a-8296505be60a/subagents/5c8a5a56-b40a-40d3-933e-28e85266b412.jsonl": {
       "mtimeMs": 1787687506721.004
@@ -13,11 +22,17 @@
     "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/bf708904-be1e-4d02-ba6a-8296505be60a/subagents/b13d37c8-a3d1-439a-86d3-153e22389972.jsonl": {
       "mtimeMs": 1787808790917.5698
     },
+    "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/bf708904-be1e-4d02-ba6a-8296505be60a/subagents/f9bd7020-7d63-432e-9fa9-4c749df4bda3.jsonl": {
+      "mtimeMs": 1788988781794.649
+    },
     "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/ede0a48a-6239-4d21-aa10-f11bba0f554c/ede0a48a-6239-4d21-aa10-f11bba0f554c.jsonl": {
-      "mtimeMs": 1788640961854.5107
+      "mtimeMs": 1788915498902.4995
+    },
+    "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/ede0a48a-6239-4d21-aa10-f11bba0f554c/subagents/618ce61a-4fff-4a91-885f-4764898ecad6.jsonl": {
+      "mtimeMs": 1788913284304.22
     },
     "/Users/nicocampanell/.cursor/projects/Users-nicocampanell-Documents-Portfolio/agent-transcripts/ede0a48a-6239-4d21-aa10-f11bba0f554c/subagents/c4d37a0e-4332-491d-9e86-6f85513246ad.jsonl": {
-      "mtimeMs": 1788641011461.4446
+      "mtimeMs": 1788641122362.7732
     }
   }
 }
