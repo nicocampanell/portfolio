@@ -11,6 +11,7 @@ export function ProgressBar({ barRef, fillRef }: Props) {
     <div
       ref={barRef}
       className={s.bar}
+      data-opening-reveal
       role="progressbar"
       aria-label="Portfolio progress"
       aria-valuemin={0}

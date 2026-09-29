@@ -1,5 +1,6 @@
 import { Card } from "./Card";
 import { Panel } from "./Panel";
+import { PostcardOpening } from "./PostcardOpening";
 import s from "./IntroCard.module.css";
 
 const META =
@@ -11,6 +12,7 @@ const BIO =
 export function IntroCard() {
   return (
     <Card id="intro" caption="Intro" intro>
+      <PostcardOpening>
       <Panel className={s.panel}>
         <img
           className={s.floral}
@@ -84,6 +86,7 @@ export function IntroCard() {
           decoding="async"
         />
       </Panel>
+      </PostcardOpening>
     </Card>
   );
 }

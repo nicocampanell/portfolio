@@ -63,6 +63,7 @@ export function Cursor() {
     <div
       ref={root}
       className={s.root}
+      data-opening-reveal
       data-mode={mode}
       data-ready={ready ? "" : undefined}
       aria-hidden="true"

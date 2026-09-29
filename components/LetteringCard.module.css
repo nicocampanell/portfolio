@@ -27,28 +27,3 @@
   bottom: -14px;
   width: 950px;
 }
-
-@media (max-width: 54rem) {
-  .playground,
-  .about {
-    left: 50%;
-    right: auto;
-    width: auto;
-    max-width: 92%;
-    max-height: 70%;
-    height: auto;
-    object-fit: contain;
-    transform: translateX(-50%);
-  }
-
-  .playground {
-    top: 50%;
-    bottom: auto;
-    transform: translate(-50%, -50%);
-  }
-
-  .about {
-    top: auto;
-    bottom: 4%;
-  }
-}

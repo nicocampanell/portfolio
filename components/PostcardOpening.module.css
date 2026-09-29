@@ -1,0 +1,72 @@
+.shell {
+  position: relative;
+  flex: 0 0 var(--panel);
+}
+
+.live {
+  position: relative;
+}
+
+.folds {
+  --opening-duration: 2000ms;
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.folds::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ball-size);
+  height: var(--ball-size);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 30% 25%, transparent 25%, #0005 100%),
+    url("/textures/paper.webp") center / cover;
+  animation: ball-unfold var(--opening-duration) var(--ease-camera) both;
+}
+
+@keyframes ball-unfold {
+  0% { opacity: 1; }
+  45%, 100% { opacity: 0; }
+}
+
+.facet,
+.artwork,
+.crease {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+}
+
+.crease {
+  background: #000;
+  pointer-events: none;
+}
+
+.artwork > * {
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global(body):has(.shell:not([data-revealing])) :global([data-opening-reveal]) {
+    visibility: hidden;
+  }
+
+  .shell {
+    rotate: 1deg;
+  }
+
+  /* Avoid flashing the flat postcard before hydration starts the folds. */
+  .shell:not([data-ready]) > .live,
+  .shell[data-unfolding] > .live {
+    opacity: 0;
+  }
+
+  .shell[data-unfolding] > .folds {
+    display: block;
+  }
+}

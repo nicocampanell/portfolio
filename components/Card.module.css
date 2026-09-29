@@ -33,6 +33,10 @@
     rotate: var(--tilt, 0deg);
   }
 
+  .intro[data-focus] {
+    rotate: 0deg;
+  }
+
   .card:has(+ [data-focus]) {
     translate: calc(var(--focus-clear) * -1) 0;
   }
@@ -64,18 +68,7 @@
 @media (max-width: 54rem) {
   .card {
     --focus-zoom: 1.06;
-    --focus-clear: calc((var(--focus-zoom) - 1) * 0.5 * var(--panel));
-    scroll-margin-block-start: 72px;
-    scroll-margin-top: 56px;
-    overflow: visible;
-  }
-
-  .card:has(+ [data-focus]) {
-    translate: 0 calc(var(--focus-clear) * -1);
-  }
-
-  .card[data-focus] + .card {
-    translate: 0 var(--focus-clear);
+    --focus-clear: calc((var(--focus-zoom) - 1) * 0.5 * var(--card));
   }
 
   .intro,

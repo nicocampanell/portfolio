@@ -23,10 +23,11 @@ export function Card({
     <Tag
       className={`${s.card} ${intro ? s.intro : s.fade}`}
       id={id}
+      data-opening-reveal={intro ? undefined : ""}
       {...(labelled ? { "aria-labelledby": captionId } : {})}
     >
       {children}
-      <p className={s.caption} id={labelled ? captionId : undefined}>
+      <p className={s.caption} id={labelled ? captionId : undefined} data-opening-reveal={intro ? "" : undefined}>
         {caption}
       </p>
     </Tag>

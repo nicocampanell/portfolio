@@ -1,6 +1,5 @@
 import { type RefObject, useEffect } from "react";
 import { cardScrollPos, closestIndex } from "@/lib/snap";
-import { useNarrow } from "./useNarrow";
 
 /**
  * Keyboard paging. Wheel is Lenis. Cards live in the track, which is the only
@@ -11,8 +10,6 @@ export function useDeckNav(
   contentRef: RefObject<HTMLElement | null>,
   scrollTo: (card: HTMLElement | null) => void,
 ) {
-  const narrow = useNarrow();
-
   useEffect(() => {
     const deck = deckRef.current;
     const content = contentRef.current;
@@ -20,9 +17,9 @@ export function useDeckNav(
 
     const onKeyDown = (event: KeyboardEvent) => {
       const cards = [...content.children] as HTMLElement[];
-      const scroll = narrow ? scrollY : deck.scrollLeft;
+      const scroll = deck.scrollLeft;
       const i = closestIndex(
-        cards.map((card) => cardScrollPos(card, deck, narrow)),
+        cards.map((card) => cardScrollPos(card, deck, false)),
         scroll,
       );
       const go = {
@@ -38,5 +35,5 @@ export function useDeckNav(
 
     deck.addEventListener("keydown", onKeyDown);
     return () => deck.removeEventListener("keydown", onKeyDown);
-  }, [deckRef, contentRef, narrow, scrollTo]);
+  }, [deckRef, contentRef, scrollTo]);
 }

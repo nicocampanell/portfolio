@@ -3,7 +3,6 @@ import Snap from "lenis/snap";
 import { type RefObject, useCallback, useEffect, useRef } from "react";
 import { CAMERA_S, cameraEase } from "@/lib/ease";
 import { cardScrollPos } from "@/lib/snap";
-import { useNarrow } from "./useNarrow";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 const LERP = 0.14;
@@ -17,15 +16,14 @@ export function useLenisDeck(
   contentRef: RefObject<HTMLElement | null>,
 ) {
   const lenisRef = useRef<Lenis | null>(null);
-  const narrow = useNarrow();
   const reduce = usePrefersReducedMotion();
 
   const scrollTo = useCallback(
     (card: HTMLElement | null) => {
       if (!card) return;
       const wrapper = wrapperRef.current;
-      const pos = wrapper ? cardScrollPos(card, wrapper, narrow) : 0;
-      const current = narrow ? scrollY : (wrapper?.scrollLeft ?? 0);
+      const pos = wrapper ? cardScrollPos(card, wrapper, false) : 0;
+      const current = wrapper?.scrollLeft ?? 0;
       const delta = pos - current;
       const lenis = lenisRef.current;
 
@@ -33,14 +31,10 @@ export function useLenisDeck(
         lenis.scrollTo(lenis.scroll + delta, { duration: CAMERA_S, easing: cameraEase });
         return;
       }
-      if (narrow) {
-        window.scrollTo({ top: Math.max(0, scrollY + delta), behavior: reduce ? "auto" : "smooth" });
-        return;
-      }
       if (!wrapper) return;
       wrapper.scrollTo({ left: wrapper.scrollLeft + delta, behavior: reduce ? "auto" : "smooth" });
     },
-    [narrow, reduce, wrapperRef],
+    [reduce, wrapperRef],
   );
 
   useEffect(() => {
@@ -49,16 +43,14 @@ export function useLenisDeck(
     const content = contentRef.current;
     if (!wrapper || !content) return;
 
-    const lenis = narrow
-      ? new Lenis({ autoRaf: true, lerp: LERP })
-      : new Lenis({
-          wrapper,
-          content,
-          orientation: "horizontal",
-          gestureOrientation: "both",
-          autoRaf: true,
-          lerp: LERP,
-        });
+    const lenis = new Lenis({
+      wrapper,
+      content,
+      orientation: "horizontal",
+      gestureOrientation: "both",
+      autoRaf: true,
+      lerp: LERP,
+    });
 
     const snap = new Snap(lenis, {
       type: "proximity",
@@ -69,15 +61,22 @@ export function useLenisDeck(
     });
 
     const cards = [...content.children] as HTMLElement[];
-    for (const card of cards) snap.add(cardScrollPos(card, wrapper, narrow));
+    let removeSnaps: (() => void)[] = [];
+    const updateSnaps = () => {
+      removeSnaps.forEach((remove) => remove());
+      removeSnaps = cards.map((card) => snap.add(cardScrollPos(card, wrapper, false)));
+    };
+    updateSnaps();
+    addEventListener("resize", updateSnaps);
 
     lenisRef.current = lenis;
     return () => {
+      removeEventListener("resize", updateSnaps);
       snap.destroy();
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [wrapperRef, contentRef, narrow, reduce]);
+  }, [wrapperRef, contentRef, reduce]);
 
   return scrollTo;
 }

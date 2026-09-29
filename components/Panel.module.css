@@ -51,25 +51,3 @@
   outline: none;
   box-shadow: inset 0 0 0 3px var(--accent);
 }
-
-@media (max-width: 54rem) {
-  .panel {
-    flex: none;
-    height: auto;
-    min-height: var(--panel);
-    /* Allow stamp/lettering/screen bleeds + focus zoom to paint outside the cream edge */
-    overflow: visible;
-  }
-
-  .grain::before {
-    width: 100%;
-    height: 140%;
-  }
-
-  .paper {
-    width: 120%;
-    height: 120%;
-    left: -10%;
-    top: -10%;
-  }
-}

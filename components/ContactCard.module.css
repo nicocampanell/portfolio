@@ -39,35 +39,3 @@
       scale 120ms var(--ease-out);
   }
 }
-
-@media (max-width: 54rem) {
-  .contact {
-    min-height: var(--panel);
-    overflow: clip;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-block: 0.5rem;
-  }
-
-  .contact a {
-    position: relative;
-    left: auto !important;
-    top: auto !important;
-    transform: none;
-    display: block;
-    font-size: clamp(32px, 12vw, 56px);
-    text-align: start;
-    padding: 0.15em 24px;
-    max-width: 100%;
-    overflow-wrap: anywhere;
-  }
-
-  .contact a:first-of-type {
-    padding-top: 2rem;
-  }
-
-  .contact a:last-of-type {
-    padding-bottom: 1.5rem;
-  }
-}

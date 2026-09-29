@@ -1,6 +1,7 @@
 /** Layout scroll position of a card, ignoring CSS scale/rotate on the card itself. */
 export function cardScrollPos(card: HTMLElement, wrapper: HTMLElement, vertical: boolean) {
-  const raw = vertical ? card.offsetTop : card.offsetLeft;
+  const zoom = parseFloat(getComputedStyle(card.parentElement ?? wrapper).zoom) || 1;
+  const raw = (vertical ? card.offsetTop : card.offsetLeft) * zoom;
   if (card.offsetParent !== wrapper) return raw;
   const cs = getComputedStyle(wrapper);
   const pad = vertical ? parseFloat(cs.paddingBlockStart) : parseFloat(cs.paddingInlineStart);

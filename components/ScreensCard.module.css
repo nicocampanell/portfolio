@@ -16,34 +16,3 @@
 .screen:nth-of-type(1) { top: -40px; inset-inline-start: -83px; rotate: -13.04deg; }
 .screen:nth-of-type(2) { top: 110px; inset-inline-start: 521px; rotate: 14.07deg; }
 .screen:nth-of-type(3) { top: 337px; inset-inline-start: -11px; rotate: -13.53deg; }
-
-@media (max-width: 54rem) {
-  .screens {
-    height: min(320px, 52dvh);
-    min-height: 240px;
-  }
-
-  .screen {
-    width: min(78%, 17rem);
-    height: auto;
-    aspect-ratio: 487 / 252;
-  }
-
-  .screen:nth-of-type(1) {
-    top: 10%;
-    inset-inline-start: 6%;
-    rotate: -8deg;
-  }
-
-  .screen:nth-of-type(2) {
-    top: 32%;
-    inset-inline-start: 20%;
-    rotate: 7deg;
-  }
-
-  .screen:nth-of-type(3) {
-    top: 54%;
-    inset-inline-start: 8%;
-    rotate: -5deg;
-  }
-}
