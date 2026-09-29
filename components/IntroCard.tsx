@@ -4,7 +4,7 @@ import { PostcardOpening } from "./PostcardOpening";
 import s from "./IntroCard.module.css";
 
 const META =
-  "made with figma, next.js & curosr - based in atx -  product designer - informatics @ ut austin";
+  "made with figma, next.js & cursor - based in atx -  product designer - informatics @ ut austin";
 
 const BIO =
   "A designer crafting human products at the intersection of design, data, and innovation driven by visual craft!";

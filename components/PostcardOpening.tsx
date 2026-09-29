@@ -55,11 +55,8 @@ export function PostcardOpening({ children }: { children: ReactNode }) {
       piece.style.zIndex = String(Math.round(depth + height) + i);
       const crease = document.createElement("div");
       crease.className = s.crease;
+      crease.style.opacity = String(Math.max(0, 1 - shade));
       piece.append(crease);
-      animations.push(crease.animate([
-        { opacity: Math.max(0, 1 - shade) },
-        { opacity: Math.max(0, 1 - postcardFold(face, POSTCARD_REST, width, height).shade) },
-      ], { duration, easing: foldEasing, fill: "both" }));
       return piece;
     });
     shell.dataset.unfolding = "";
@@ -102,10 +99,12 @@ export function PostcardOpening({ children }: { children: ReactNode }) {
       duration: duration / 1000,
       ease: "linear",
       onUpdate(progress) {
+        const eased = cameraEase(progress / POSTCARD_REST) * POSTCARD_REST;
         pieces.forEach((piece, i) => {
-          const { matrix } = postcardFold(POSTCARD_FACES[i], cameraEase(progress / POSTCARD_REST), width, height);
-          // Direct matrices keep the folds continuous through reflected triangle poses.
+          const { matrix, shade } = postcardFold(POSTCARD_FACES[i], eased, width, height);
+          // Artwork and shadows share each facet's exact folded pose.
           piece.style.transform = `matrix(${matrix.join(",")})`;
+          (piece.lastElementChild as HTMLElement).style.opacity = String(Math.max(0, 1 - shade));
         });
       },
     });

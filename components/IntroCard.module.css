@@ -14,7 +14,7 @@
   max-width: none;
   object-fit: contain;
   object-position: left bottom;
-  opacity: 0.35;
+  opacity: 0.55;
   pointer-events: none;
   border: 0;
   background: transparent;
@@ -46,9 +46,9 @@
   margin: 0;
   width: 100%;
   color: var(--muted);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 28px;
+  line-height: 24px;
   letter-spacing: 0.16px;
 }
 
@@ -158,9 +158,9 @@
 .texas {
   left: 600px;
   top: 123px;
-  width: 134.20px;
-  height: 132px;
+  width: 161.04px;
+  height: 158.4px;
   object-fit: contain;
   rotate: 16.9deg;
-  opacity: 0.45;
+  opacity: 0.80;
 }

@@ -1,9 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <style>
-    rect { fill: #fc671e; }
-    @media (prefers-color-scheme: dark) {
-      rect { fill: #faf9f7; }
-    }
-  </style>
-  <rect width="32" height="32"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path fill="#bd7b36" d="M9 0h46a5 5 0 0 0 5 5v4a5 5 0 0 0 0 10v4a5 5 0 0 0 0 10v4a5 5 0 0 0 0 10v4a5 5 0 0 0-5 5H9a5 5 0 0 0-5-5v-4a5 5 0 0 0 0-10v-4a5 5 0 0 0 0-10v-4a5 5 0 0 0 0-10V5a5 5 0 0 0 5-5z"/>
+  <path fill="#d55a24" d="M10 9h44v46H10z"/>
+  <g fill="#241810">
+    <path d="M12 12h8v2h-8zm32 0h9v2h-9zM12 48h8v2h-8zm31 0h10v2H43z"/>
+    <path d="M15 36h35v13H15z" fill="#594322"/>
+    <path d="m15 42 13-7 6 4 8-8 8 5v13H15z" fill="#31351f"/>
+    <path d="M31 21h2v16h-2zm-5 5 6-7 6 7-2 1-4-4-4 4z"/>
+    <path d="M20 19h5v1h-5zm19 0h6v1h-6zM22 52h21v1H22z"/>
+  </g>
+  <circle cx="32" cy="30" r="3" fill="#d9a34c"/>
 </svg>
