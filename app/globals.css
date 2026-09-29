@@ -9,7 +9,7 @@
   --screen: #d9d9d9;
   --card: 896px;
   --panel: 582.4px;
-  --inset: 161px;
+  --inset: max(0px, calc((100vw - var(--card)) / 2));
   --gap: 71px;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);

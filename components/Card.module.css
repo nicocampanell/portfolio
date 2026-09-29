@@ -19,6 +19,11 @@
   text-wrap: pretty;
 }
 
+.intro {
+  position: relative;
+  top: calc((1lh + 0.75rem) / 2);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .card {
     transition:

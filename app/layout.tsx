@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "Nico Campanell",
   description,
   alternates: { canonical: "/" },
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: "/favicon.png" },
   openGraph: {
     title: "Nico Campanell",
     description,

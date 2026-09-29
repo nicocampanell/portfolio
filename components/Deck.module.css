@@ -11,7 +11,7 @@
   overscroll-behavior: none;
   touch-action: none;
   scrollbar-width: none;
-  padding-block: 125px 85px;
+  padding-block: 0;
   padding-inline-start: var(--inset);
   padding-inline-end: max(var(--inset), 100vw - var(--card) - var(--inset));
 }
@@ -30,8 +30,8 @@
 .grid {
   position: absolute;
   z-index: 0;
-  top: -125px;
-  bottom: -85px;
+  top: 0;
+  bottom: 0;
   left: calc(-1 * var(--inset));
   right: calc(-1 * max(var(--inset), 100vw - var(--card) - var(--inset)));
   pointer-events: none;
@@ -43,7 +43,7 @@
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--gap);
   height: 100%;
   width: max-content;
