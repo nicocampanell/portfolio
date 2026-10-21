@@ -1,0 +1,25 @@
+.iteration { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.title { margin: 0; color: #5c544e; font: 400 16px/28px var(--font); letter-spacing: .16px; }
+.panel { display: flex; flex-direction: column; gap: 37px; width: 100%; padding: 24px; border-radius: 16px; background: #f0f0f0; }
+.row { display: grid; grid-template-columns: minmax(0, 405px) 244px; justify-content: space-between; align-items: center; column-gap: 24px; min-height: 263px; }
+.row:last-child { min-height: 262px; }
+.screenshot { position: relative; width: 100%; aspect-ratio: 405 / 263; overflow: hidden; }
+.afterScreenshot { aspect-ratio: 405 / 262; }
+.tallImages .screenshot { aspect-ratio: 405 / 363; }
+.tallImages .afterScreenshot { aspect-ratio: 405 / 362; }
+.screenshot img { display: block; width: 100%; max-width: none; height: auto; }
+/* Include a few source pixels of bleed so resampling cannot reveal the capture outlines. */
+.screenshot .homeBefore { position: absolute; top: 0; left: 0; width: 100.489853%; transform: translate(-.139276%, -.386399%); }
+.screenshot .homeAfter { position: absolute; top: 0; left: 0; width: 100.772201%; transform: translate(-.319285%, -.16835%); }
+.screenshot .searchBefore { position: absolute; top: -.67%; left: 0; height: 100.67%; }
+.screenshot .searchAfter { position: absolute; top: -.11%; left: -.05%; height: 109.77%; }
+.notes { display: flex; flex-direction: column; gap: 12px; min-height: 204px; font: 400 16px/28px var(--font); letter-spacing: .16px; overflow-wrap: break-word; }
+.label { margin: 0; color: #1f1a17; text-align: center; }
+.list { display: flex; flex-direction: column; gap: 12px; margin: 0; padding-inline-start: 24px; color: #635d58; list-style: decimal; }
+.afterList { gap: 11px; }
+.list li { padding: 0; }
+@media (max-width: 640px) {
+  .row { grid-template-columns: minmax(0, 1fr); row-gap: 20px; min-height: 0; }
+  .row:last-child { min-height: 0; }
+  .notes { min-height: 0; }
+}

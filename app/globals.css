@@ -3,9 +3,10 @@
   --cream: #faf9f7;
   --card-bg: #faf9f7;
   --page: #faf9f7;
-  --ink: #1f1a17;
-  --muted: #5c544e;
-  --caption: #7a716a;
+  --ink: #5a5653;
+  --black: #1f1a17;
+  --muted: #706c69;
+  --caption: #85807c;
   --screen: #d9d9d9;
   --card: 896px;
   --panel: 582.4px;
@@ -36,6 +37,7 @@
     1
   );
   --font: var(--font-sohne), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-sohne-mono), "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 *,
@@ -83,8 +85,41 @@ a {
   color: inherit;
 }
 
-/* Text links: underline draws left → right; weight + timing scale with type size */
+/* Text links fill from left to right using the existing curve and timing. */
 .u-link {
+  --underline-ms: calc(120ms + tan(atan2(1em, 1px)) * 2.2ms);
+  text-decoration: none;
+  transition: background-position calc(var(--underline-ms) * 1.25) var(--ease-camera);
+}
+.u-link:not(.u-link--underline) {
+  background-image: linear-gradient(to right, var(--black) 50%, currentColor 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+@media (hover: hover) {
+  .u-link:not(.u-link--underline):hover { background-position: 0 0; }
+}
+.u-link:not(.u-link--underline):focus-visible { background-position: 0 0; }
+@media (forced-colors: active) {
+  .u-link:not(.u-link--underline) {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+@supports not (transition-duration: calc(tan(atan2(1em, 1px)) * 1ms)) {
+  .u-link { --underline-ms: 200ms; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .u-link { transition: none; }
+}
+
+/* Contact card retains its existing underline. */
+.u-link--underline {
   --underline: max(1px, 0.06em);
   /* ~120ms + 2.2ms per px of font-size → body ~155ms, 70px display ~274ms */
   --underline-ms: calc(120ms + tan(atan2(1em, 1px)) * 2.2ms);
@@ -97,28 +132,28 @@ a {
 }
 
 @media (hover: hover) {
-  .u-link:hover {
+  .u-link--underline:hover {
     background-size: 100% var(--underline);
   }
 }
 
-.u-link:focus-visible {
+.u-link--underline:focus-visible {
   background-size: 100% var(--underline);
 }
 
 @supports not (transition-duration: calc(tan(atan2(1em, 1px)) * 1ms)) {
-  .u-link {
+  .u-link--underline {
     --underline-ms: 200ms;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .u-link {
+  .u-link--underline {
     transition: none;
   }
 
   @media (hover: hover) {
-    .u-link:hover {
+    .u-link--underline:hover {
       text-decoration: underline;
       text-underline-offset: 0.12em;
       text-decoration-thickness: max(1px, 0.06em);
@@ -126,7 +161,7 @@ a {
     }
   }
 
-  .u-link:focus-visible {
+  .u-link--underline:focus-visible {
     text-decoration: underline;
     text-underline-offset: 0.12em;
     text-decoration-thickness: max(1px, 0.06em);

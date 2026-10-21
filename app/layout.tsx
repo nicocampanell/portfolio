@@ -15,6 +15,13 @@ const sohne = localFont({
   fallback: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
 });
 
+const sohneMono = localFont({
+  src: "../public/fonts/sohne-mono-buch.otf",
+  display: "swap",
+  variable: "--font-sohne-mono",
+  fallback: ["SFMono-Regular", "Menlo", "Consolas", "monospace"],
+});
+
 const description =
   "Nico Campanell — designer at the intersection of design, data, and innovation. Informatics at UT Austin.";
 
@@ -48,7 +55,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={sohne.variable}>
+    <html lang="en" className={`${sohne.variable} ${sohneMono.variable}`}>
       <body>
         {children}
         <Cursor />

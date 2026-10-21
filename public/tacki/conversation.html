@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#F0F0F0}
+#convo{--bg:#F0F0F0;--me:#0A84FF;--them:#E9E9EB;--them-ink:#000;--sub:#8A8A8E}
+
+#cv-thread{
+  width:min(100%,820px);height:100%;margin:0 auto;
+  padding:48px 72px 64px;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:10px;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 140px);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 140px);
+}
+.cv-row{display:flex;flex-direction:column;flex-shrink:0}
+.cv-row.me{align-items:flex-end}
+.cv-row.them{align-items:flex-start}
+.cv-bubble{
+  position:relative;max-width:78%;
+  padding:12px 20px 13px;
+  border-radius:26px;
+  font-size:24px;line-height:1.28;letter-spacing:-.011em;
+}
+.me .cv-bubble{background:var(--me);color:#fff}
+.them .cv-bubble{background:var(--them);color:var(--them-ink)}
+/* iOS tails */
+.cv-bubble::before,.cv-bubble::after{content:"";position:absolute;bottom:0;height:22px}
+.me .cv-bubble::before{right:-8px;width:22px;background:var(--me);border-bottom-left-radius:18px}
+.me .cv-bubble::after{right:-12px;width:12px;background:var(--bg);border-bottom-left-radius:10px}
+.them .cv-bubble::before{left:-8px;width:22px;background:var(--them);border-bottom-right-radius:18px}
+.them .cv-bubble::after{left:-12px;width:12px;background:var(--bg);border-bottom-right-radius:10px}
+.cv-status{
+  font-size:14px;font-weight:500;color:var(--sub);
+  margin:5px 4px 0;height:17px;line-height:17px;
+}
+.cv-dots{display:flex;gap:6px;align-items:center;height:28px;padding:0 2px}
+.cv-dots i{width:10px;height:10px;border-radius:50%;background:#9A9AA0;animation:cv-dot 1.3s infinite ease-in-out}
+.cv-dots i:nth-child(2){animation-delay:.18s}
+.cv-dots i:nth-child(3){animation-delay:.36s}
+@keyframes cv-dot{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+#convo .cv-stage{width:1280px;height:832px;background:var(--bg);position:relative;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+
+#convo{width:100%;height:100%;position:relative;overflow:hidden;background:#F0F0F0}
+#convo .cv-stage{position:absolute;left:0;bottom:0;transform-origin:bottom left}
+</style></head><body><section class="area" id="convo">
+<div class="cv-stage"><main id="cv-thread" aria-live="polite"></main></div>
+</section><script>
+function fit(){var stage=document.querySelector('#convo .cv-stage');if(!stage)return;stage.style.transform='scale('+(innerWidth/1280)+')'}
+addEventListener('resize',fit);fit();
+(function(){
+  var thread=document.getElementById('cv-thread');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // who: 'me' = the customer (sender), 'them' = the stylist
+  var script=[
+    {who:'me',  text:'Hello John, I heard you give haircuts. I would love to have one. Let me know more details.'},
+    {who:'them',text:'Yeah, I love cutting hair. What do you want??'},
+    {who:'me',  text:'I want a wolf cut-style haircut.'},
+    {who:'them',text:'Yeah, I can do something similar.'},
+    {who:'me',  text:'Okay, nice. How much do you charge?'},
+    {who:'them',text:'Anywhere from $30 to $60.'},
+    {who:'me',  text:'That’s a very big range. What time works for you?'},
+    {who:'them',text:'Maybe Thursday? Not sure yet, let me check.'},
+    {who:'me',  text:'Thursday works! Where are you located?'},
+    {who:'them',ghost:2600},                       // starts typing, never sends
+    {who:'me',  text:'Hello? Are you still available?',hold:true}
+  ];
+
+  var token=0;
+  function sleep(ms,t){return new Promise(function(r){setTimeout(function(){r()},ms)})}
+
+  function makeRow(who,inner){
+    var row=document.createElement('div');row.className='cv-row '+who;
+    var b=document.createElement('div');b.className='cv-bubble';
+    if(typeof inner==='string')b.textContent=inner;else b.appendChild(inner);
+    row.appendChild(b);return row;
+  }
+  function dots(){var d=document.createElement('div');d.className='cv-dots';d.innerHTML='<i></i><i></i><i></i>';return d}
+
+  // Append a row and slide everything above it up (FLIP) so the thread scrolls smoothly.
+  function push(row,animate){
+    var prev=[].map.call(thread.children,function(c){return [c,c.getBoundingClientRect().top]});
+    thread.appendChild(row);
+    if(!animate||reduce)return;
+    prev.forEach(function(p){
+      var dy=p[1]-p[0].getBoundingClientRect().top;
+      if(dy)p[0].animate([{transform:'translateY('+dy+'px)'},{transform:'translateY(0)'}],{duration:480,easing:'cubic-bezier(.2,.8,.2,1)'});
+    });
+    var b=row.firstChild,left=row.classList.contains('them');
+    b.style.transformOrigin=(left?'0':'100%')+' 100%';
+    b.animate([{opacity:0,transform:'scale(.4) translateY(10px)'},{opacity:1,transform:'scale(1) translateY(0)'}],{duration:420,easing:'cubic-bezier(.22,1,.36,1)'});
+  }
+  function remove(row){
+    var prev=[].filter.call(thread.children,function(c){return c!==row}).map(function(c){return [c,c.getBoundingClientRect().top]});
+    row.remove();
+    if(reduce)return;
+    prev.forEach(function(p){
+      var dy=p[1]-p[0].getBoundingClientRect().top;
+      if(dy)p[0].animate([{transform:'translateY('+dy+'px)'},{transform:'translateY(0)'}],{duration:380,easing:'cubic-bezier(.2,.8,.2,1)'});
+    });
+  }
+  function setStatus(row,txt){
+    var s=row.querySelector('.cv-status');
+    if(!s){s=document.createElement('div');s.className='cv-status';row.appendChild(s)}
+    s.textContent=txt;
+    if(!reduce)s.animate([{opacity:0},{opacity:1}],{duration:220});
+  }
+  function clearStatuses(){[].forEach.call(thread.querySelectorAll('.cv-status'),function(s){s.remove()})}
+  function readTime(t){return 1500}
+
+  async function play(){
+    var my=++token,alive=function(){return my===token};
+    thread.innerHTML='';
+    for(var i=0;i<script.length;i++){
+      if(!alive())return;
+      var m=script[i];
+      if(m.who==='them'){
+        if(m.ghost){
+          // the one beat that still shows typing: it starts, then never sends
+          var t=makeRow('them',dots());push(t,true);
+          await sleep(m.ghost);
+          if(!alive())return;
+          remove(t);await sleep(1500);continue
+        }
+        // replies pop up straight away, exactly like the sender's messages
+        push(makeRow('them',m.text),true);
+        await sleep(readTime(m.text));
+      }else{
+        clearStatuses();
+        var r=makeRow('me',m.text);push(r,true);
+        setStatus(r,'Delivered');
+        await sleep(650);
+        if(!alive())return;
+        setStatus(r,'Read');
+        await sleep(m.hold?5200:550);
+      }
+    }
+    if(!alive())return;
+    play();
+  }
+
+  var area=document.getElementById('convo');
+  if(reduce){
+    script.forEach(function(m){if(m.text)push(makeRow(m.who,m.text),false)});
+    var last=thread.lastChild;setStatus(last,'Read');
+  }else{
+    play();
+  }
+})();
+</script></body></html>

@@ -1,5 +1,5 @@
 import Lenis from "lenis";
-import { type RefObject, useEffect } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 const LERP = 0.14;
@@ -10,6 +10,7 @@ export function useLenisVertical(
   contentRef: RefObject<HTMLElement | null>,
 ) {
   const reduce = usePrefersReducedMotion();
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     if (reduce) return;
@@ -24,6 +25,12 @@ export function useLenisVertical(
       lerp: LERP,
     });
 
-    return () => lenis.destroy();
+    lenisRef.current = lenis;
+    return () => {
+      lenis.destroy();
+      lenisRef.current = null;
+    };
   }, [wrapperRef, contentRef, reduce]);
+
+  return lenisRef;
 }

@@ -1,20 +1,21 @@
 export const ABOUT_BIO = [
-  "I’m currently a student at the University of Texas at Austin studying UX Design & Data Science with a certificate in Design Strategies. With my background in data science and design I have a passion for storytelling, breaking down complex problems, & innovation!",
-  "In my free time, you can probably find me hiking a mountain in a foreign country, finding new clothes thrifting, discovering new music, or doing anything active.",
+  "I'm currently studying at UT Austin. As an interdisciplinary creative, I've always been driven by curiosity. That curiosity has led me to explore everything from design and data to development and AI. I'm always looking for new opportunities to build impactful products.",
+  "In my free time, you can probably find me hiking a mountain in a foreign country, finding new clothes thrifting, editing videos, or doing anything active.",
 ] as const;
 
 export const EXPERIENCE = [
-  { org: "Nerava", role: "product designer", when: "current" },
+  { org: "Longhorn Developers", role: "user experience designer", when: "current" },
+  { org: "Leadership Austin", role: "lead product designer", when: "current" },
+  { org: "Nerava", role: "lead product engineer", when: "current" },
   { org: "Texas Product Engineering Org", role: "design fellow", when: "current" },
-  { org: "Texas Wranglers", role: "public relations chair", when: "current" },
   { org: "Develop For Good", role: "product designer", when: "summer 2026" },
   { org: "GW Biostatistics", role: "data science research assistant", when: "2025" },
 ] as const;
 
 export const EDUCATION = {
   org: "UT Austin",
-  detail: "B.S. Informatics, Certificate in Design Strategies",
-  when: "2025-2028",
+  detail: "b.s. informatics, minors in design & entrepreneurship",
+  when: "may 2028",
 } as const;
 
 export const HELLO = [

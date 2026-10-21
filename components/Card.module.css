@@ -1,4 +1,6 @@
 .card {
+  position: relative;
+  top: calc((1lh + 0.75rem) / 2);
   flex: 0 0 var(--card);
   width: var(--card);
   display: flex;
@@ -7,7 +9,7 @@
   z-index: 0;
   --focus-zoom: 1.1;
   --focus-clear: calc((var(--focus-zoom) - 1) * 0.5 * var(--card));
-  transform-origin: 50% 50%;
+  transform-origin: 50% calc(var(--panel) / 2);
   scale: 1;
   rotate: 0deg;
   translate: 0;
@@ -16,12 +18,10 @@
 .caption {
   margin: 0;
   color: var(--caption);
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: .2px;
   text-wrap: pretty;
-}
-
-.intro {
-  position: relative;
-  top: calc((1lh + 0.75rem) / 2);
 }
 
 @media (prefers-reduced-motion: no-preference) {

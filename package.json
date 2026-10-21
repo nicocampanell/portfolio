@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check": "node --experimental-strip-types --no-warnings lib/zoom.test.ts"
+    "check": "node --experimental-strip-types --no-warnings lib/zoom.test.ts && node --experimental-strip-types --no-warnings --test lib/case-study.test.mjs"
   },
   "dependencies": {
     "lenis": "^1.3.26",

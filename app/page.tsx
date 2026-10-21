@@ -4,7 +4,8 @@ import { Deck } from "@/components/Deck";
 import { IntroCard } from "@/components/IntroCard";
 import { LetteringCard } from "@/components/LetteringCard";
 import { PageEnter } from "@/components/PageEnter";
-import { ScreensCard } from "@/components/ScreensCard";
+import { BlankCaseStudyCard, CaseStudyCard } from "@/components/CaseStudyCard";
+import { getCaseStudy } from "@/content/case-studies";
 
 export default function Home() {
   return (
@@ -25,10 +26,15 @@ export default function Home() {
                   href={card.href}
                 />
               );
-            case "screens":
-              return <ScreensCard key={card.id} id={card.id} caption={card.caption} />;
+            case "case-study": {
+              const study = getCaseStudy(card.slug);
+              if (!study) throw new Error(`Missing case study: ${card.slug}`);
+              return <CaseStudyCard key={card.id} id={card.id} study={study} />;
+            }
             case "contact":
               return <ContactCard key="contact" />;
+            case "placeholder":
+              return <BlankCaseStudyCard key={card.id} id={card.id} />;
           }
         })}
       </Deck>

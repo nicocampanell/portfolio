@@ -1,0 +1,38 @@
+.decisions { display: flex; flex-direction: column; gap: 48px; width: 100%; }
+.decision { display: flex; flex-direction: column; gap: 24px; min-width: 0; width: 100%; }
+.intro { display: flex; flex-direction: column; gap: 8px; font: 400 16px/28px var(--font); letter-spacing: .16px; color: #635d58; }
+.intro h3 { margin: 0; color: #5c544e; font: inherit; font-weight: 500; }
+.diagram { width: 100%; height: 440px; margin: 0; overflow: hidden; border-radius: 16px; background: #f0f0f0; }
+.diagram > svg { display: block; width: 100%; height: 100%; font-family: var(--font); }
+.diagramText { font-size: 24px; font-weight: 400; text-anchor: middle; dominant-baseline: central; }
+.flowHeadings, .flowRow { display: grid; grid-template-columns: minmax(0, .925fr) 24px minmax(0, .925fr) 24px minmax(0, 1.15fr); gap: 12px; }
+.flowHeadings { margin-bottom: 12px; color: #7a716a; font: 400 14px/20px var(--font); letter-spacing: .14px; }
+.flowRows { display: flex; flex-direction: column; gap: 16px; list-style: none; }
+.trustFlow .flowRows { padding: 0; }
+.card { display: flex; flex-direction: column; justify-content: center; gap: 8px; min-width: 0; padding: 16px; border-radius: 16px; background: #f0f0f0; color: #5c544e; font: 400 16px/28px var(--font); letter-spacing: .16px; overflow-wrap: break-word; }
+.card p { font: inherit; letter-spacing: inherit; }
+.mechanismContent { display: flex; align-items: center; gap: 12px; }
+.icon { display: flex; align-items: center; flex: none; }
+.icon img { display: block; max-width: none; }
+.arrow { align-self: center; justify-self: center; color: #5c544e; }
+.cardLabel { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.roleLabel { fill: #5c544e; font-size: 20px; font-weight: 500; text-anchor: middle; }
+.person { transform-box: fill-box; transform-origin: center; animation: personPop 8s var(--ease-camera) both infinite; animation-play-state: paused; }
+.venn[data-running="true"] .person { animation-play-state: running; }
+@keyframes personPop {
+  0%, 4% { opacity: 0; transform: translateY(10px) scale(.9); }
+  9%, 80% { opacity: 1; transform: translateY(0) scale(1); }
+  86%, 100% { opacity: 0; transform: translateY(6px) scale(.95); }
+}
+@media (max-width: 640px) {
+  .diagram { height: auto; aspect-ratio: 767 / 440; }
+  .flowHeadings { display: none; }
+  .flowRows { gap: 32px; }
+  .flowRow { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .cardLabel { position: static; width: auto; height: auto; clip-path: none; white-space: normal; color: #7a716a; font-size: 14px; line-height: 20px; }
+  .arrow { transform: rotate(90deg); }
+  .roleLabel { font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .person { animation: none; opacity: 1; transform: none; }
+}

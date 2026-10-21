@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #F0F0F0; }
+    svg { display: block; width: 100%; height: 100%; }
+    .label { font: 700 32px system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; }
+    .privacy { fill: #fff; }
+    .convenience { fill: #26302B; }
+  </style>
+</head>
+<body>
+  <svg viewBox="302 0 676 700" role="img" aria-label="Privacy and convenience circles converge toward a balance">
+    <circle id="privacy-circle" cx="435" cy="380" r="65" fill="#FC671E" />
+    <circle id="convenience-circle" cx="705" cy="380" r="205" fill="none" stroke="#3E4E47" stroke-width="2" />
+    <text id="privacy-label" class="label privacy" x="435" y="380">Privacy</text>
+    <text id="convenience-label" class="label convenience" x="705" y="380">Convenience</text>
+  </svg>
+  <script>
+    (function () {
+      var svg = document.querySelector('svg');
+      var privacy = document.getElementById('privacy-circle');
+      var convenience = document.getElementById('convenience-circle');
+      var privacyLabel = document.getElementById('privacy-label');
+      var convenienceLabel = document.getElementById('convenience-label');
+      var P0 = 205, C0 = 65, sum = P0 + C0, meet = sum / 2;
+      var starts = [1, 2.1, 3.3, 4.6];
+      var raf = 0, startTime = 0;
+      var clamp = function (value) { return Math.max(0, Math.min(1, value)); };
+      var out = function (value) { return 1 - Math.pow(1 - value, 3); };
+      var inOut = function (value) { return value < .5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2; };
+
+      function draw(time) {
+        var change = 0;
+        starts.forEach(function (start) { change += out(clamp((time - start) / .4)) / starts.length; });
+        change *= 1 - inOut(clamp((time - 7) / .9));
+        var privacyRadius = C0 + (meet - C0) * change;
+        var convenienceRadius = sum - privacyRadius;
+        var privacyX = 640 - sum + privacyRadius;
+        var convenienceX = 640 - sum + 2 * privacyRadius + convenienceRadius;
+        privacy.setAttribute('r', privacyRadius);
+        privacy.setAttribute('cx', privacyX);
+        convenience.setAttribute('r', convenienceRadius);
+        convenience.setAttribute('cx', convenienceX);
+        privacyLabel.setAttribute('x', privacyX);
+        convenienceLabel.setAttribute('x', convenienceX);
+      }
+
+      function frame(now) {
+        if (!startTime) startTime = now;
+        draw(((now - startTime) / 1000) % 8.8);
+        raf = requestAnimationFrame(frame);
+      }
+
+      draw(0);
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { draw(6); return; }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+          startTime = 0;
+          if (entries[0].isIntersecting) raf = requestAnimationFrame(frame);
+        }, { threshold: .35 }).observe(svg);
+      } else {
+        raf = requestAnimationFrame(frame);
+      }
+    })();
+  </script>
+</body>
+</html>

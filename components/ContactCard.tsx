@@ -14,7 +14,7 @@ export function ContactCard() {
     <Card id="contact" caption="Contact" as="section" labelled>
       <Panel as="nav" textured={false} className={s.contact} aria-label="Social">
         {LINKS.map((link) => (
-          <a key={link.href} href={link.href} rel={link.rel} className="u-link">
+          <a key={link.href} href={link.href} rel={link.rel} className="u-link u-link--underline">
             {link.label}
           </a>
         ))}

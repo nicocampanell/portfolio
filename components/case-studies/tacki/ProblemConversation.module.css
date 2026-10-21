@@ -1,0 +1,19 @@
+.stage { position: absolute; left: 0; bottom: 0; width: 1280px; height: 832px; transform-origin: bottom left; overflow: hidden; background: #f0f0f0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.thread { box-sizing: border-box; width: 820px; height: 100%; margin: 0 auto; padding: 48px 72px 64px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 140px); mask-image: linear-gradient(to bottom, transparent 0, #000 140px); }
+.row { display: flex; flex-direction: column; flex-shrink: 0; }
+.me { align-items: flex-end; }
+.them { align-items: flex-start; }
+.bubble { box-sizing: border-box; position: relative; max-width: 78%; padding: 12px 20px 13px; border-radius: 26px; font-size: 24px; line-height: 1.28; letter-spacing: -.011em; }
+.me .bubble { background: #0a84ff; color: #fff; }
+.them .bubble { background: #e9e9eb; color: #000; }
+.bubble::before, .bubble::after { content: ""; position: absolute; bottom: 0; height: 22px; }
+.me .bubble::before { right: -8px; width: 22px; background: #0a84ff; border-bottom-left-radius: 18px; }
+.me .bubble::after { right: -12px; width: 12px; background: #f0f0f0; border-bottom-left-radius: 10px; }
+.them .bubble::before { left: -8px; width: 22px; background: #e9e9eb; border-bottom-right-radius: 18px; }
+.them .bubble::after { left: -12px; width: 12px; background: #f0f0f0; border-bottom-right-radius: 10px; }
+.status { height: 17px; margin: 5px 4px 0; color: #8a8a8e; font-size: 14px; font-weight: 500; line-height: 17px; }
+.dots { display: flex; gap: 6px; align-items: center; height: 28px; padding: 0 2px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: #9a9aa0; animation: dot 1.3s infinite ease-in-out; }
+.dots i:nth-child(2) { animation-delay: .18s; }
+.dots i:nth-child(3) { animation-delay: .36s; }
+@keyframes dot { 0%, 60%, 100% { opacity: .35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }

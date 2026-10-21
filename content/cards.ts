@@ -8,14 +8,15 @@ export type Card =
       variant: "playground" | "about";
       href?: string;
     }
-  | { kind: "screens"; id: string; caption: string }
+  | { kind: "case-study"; id: string; slug: string }
+  | { kind: "placeholder"; id: string }
   | { kind: "contact" };
 
 export const cards: Card[] = [
   { kind: "intro" },
-  { kind: "screens", id: "tacki-1", caption: "TACKI - Student Service Marketplace" },
-  { kind: "screens", id: "tacki-2", caption: "TACKI - Student Service Marketplace" },
-  { kind: "screens", id: "tacki-3", caption: "TACKI - Student Service Marketplace" },
+  { kind: "case-study", id: "tacki-1", slug: "tacki" },
+  { kind: "placeholder", id: "project-2" },
+  { kind: "placeholder", id: "project-3" },
   {
     kind: "lettering",
     id: "playground",

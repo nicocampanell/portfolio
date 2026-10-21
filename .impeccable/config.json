@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "app/globals.css"
+        ],
+        "createdAt": "2026-10-20T20:57:43.016Z",
+        "reason": "User confirmed left-to-right solid black text fill on hover; gradient is the wipe mask between solid text colors, not decorative gradient typography."
+      }
+    ]
+  }
+}
