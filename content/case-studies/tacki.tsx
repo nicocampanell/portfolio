@@ -1,3 +1,17 @@
+import { AnimationFrame } from "@/components/AnimationFrame";
+import Image from "next/image";
+import journeyCustomer from "@/public/tacki/2f7c0.webp";
+import journeyProvider from "@/public/tacki/7c1e6.webp";
+import competitiveAnalysis from "@/public/tacki/9a058.webp";
+import interviewNotes from "@/public/tacki/b2a78.webp";
+import interviewFindings from "@/public/tacki/defa5.webp";
+import researchSynthesis from "@/public/tacki/9878a.png";
+import homeBefore from "@/public/tacki/e0393.webp";
+import homeAfter from "@/public/tacki/8e97c.webp";
+import searchBefore from "@/public/tacki/af2a2.webp";
+import searchAfter from "@/public/tacki/994c7.webp";
+import listingBefore from "@/public/tacki/918f0.webp";
+import listingAfter from "@/public/tacki/896fe.webp";
 import type { ComponentProps } from "react";
 import type { CaseStudy } from "@/lib/case-study";
 import { ProblemConversation } from "@/components/case-studies/tacki/ProblemConversation";
@@ -21,18 +35,18 @@ const project = {
   },
 } satisfies Omit<CaseStudy, "sections">;
 
-const journeyCustomer = "/tacki/2f7c0.png";
-const journeyProvider = "/tacki/7c1e6.png";
-const competitiveAnalysis = "/tacki/9a058.png";
-const interviewNotes = "/tacki/b2a78.png";
-const interviewFindings = "/tacki/defa5.png";
-const researchSynthesis = "/tacki/9878a.png";
-const homeBefore = "/tacki/e0393.png";
-const homeAfter = "/tacki/8e97c.png";
-const searchBefore = "/tacki/af2a2.png";
-const searchAfter = "/tacki/994c7.png";
-const listingBefore = "/tacki/918f0.png";
-const listingAfter = "/tacki/896fe.png";
+
+
+
+
+
+
+
+
+
+
+
+
 const quoteLine = "/tacki/a43c0.svg";
 const mailIcon = "/tacki/af581.svg";
 
@@ -127,8 +141,8 @@ export const tacki: CaseStudy = {
           <div className={s.hero} data-node-id="156:501" data-name="Project Details">
             <div className={s.heroMediaWrapper} data-node-id="842:2554" data-name="Project Details Content">
               <div className={s.heroMedia} data-node-id="842:2557" data-name="Image">
-                <iframe
-                  className={s.heroFrame}
+                <AnimationFrame
+                  eager className={s.heroFrame}
                   src="/tacki/home-to-search.html"
                   title="Tacki home-to-search walkthrough"
                   sandbox="allow-scripts"
@@ -281,14 +295,14 @@ export const tacki: CaseStudy = {
                   <div className={s.layout10} data-node-id="592:361">
                     <div className={s.layout11}>
                       <div className={s.image3} data-name="Image">
-                        <img alt="Journey map for students booking services" loading="lazy" decoding="async" className={s.layout12} src={journeyCustomer} />
+                        <Image quality={90} sizes="400px" alt="Journey map for students booking services" loading="lazy" decoding="async" className={s.layout12} src={journeyCustomer} />
                       </div>
                     </div>
                   </div>
                   <div className={s.layout13} data-node-id="592:362">
                     <div className={s.layout14}>
                       <div className={s.image4} data-name="Image">
-                        <img alt="Journey map for student service providers" loading="lazy" decoding="async" className={s.layout12} src={journeyProvider} />
+                        <Image quality={90} sizes="400px" alt="Journey map for student service providers" loading="lazy" decoding="async" className={s.layout12} src={journeyProvider} />
                       </div>
                     </div>
                   </div>
@@ -297,7 +311,7 @@ export const tacki: CaseStudy = {
               </div>
               <div className={s.imageColumn2} data-node-id="771:78" data-name="Image Column">
                 <div className={s.screen} data-node-id="771:82" data-name="Screenshot 2026-10-07 at 6.16.06 PM 1">
-                  <img alt="Competitive analysis of student service platforms" loading="lazy" decoding="async" className={s.layout12} src={competitiveAnalysis} />
+                  <Image quality={90} sizes="430px" alt="Competitive analysis of student service platforms" loading="lazy" decoding="async" className={s.layout12} src={competitiveAnalysis} />
                 </div>
                 <p className={s.researchCaption}>Competitive analysis</p>
               </div>
@@ -305,17 +319,17 @@ export const tacki: CaseStudy = {
                 <div className={s.layout15} data-node-id="771:86">
                   <div className={s.layout16}>
                     <div className={s.screen2} data-name="Screenshot 2026-10-01 at 10.40.16 PM 1">
-                      <img alt="Student interview notes" loading="lazy" decoding="async" className={s.layout12} src={interviewNotes} />
+                      <Image quality={90} sizes="403px" alt="Student interview notes" loading="lazy" decoding="async" className={s.layout12} src={interviewNotes} />
                     </div>
                   </div>
                 </div>
                 <div className={s.layout17} data-node-id="848:2586">
                   <div className={s.layout18}>
                     <div className={s.screen3} data-name="Screenshot 2026-10-14 at 12.24.10 AM 1">
-                      <img alt="Interview findings for student service discovery" loading="lazy" decoding="async" className={s.layout12} src={interviewFindings} />
+                      <Image quality={90} sizes="314px" alt="Interview findings for student service discovery" loading="lazy" decoding="async" className={s.layout12} src={interviewFindings} />
                       <div className={s.object} data-node-id="848:2588" data-name="Object">
                         <div className={s.layout19}>
-                          <img alt="Research synthesis" loading="lazy" decoding="async" className={s.layout20} src={researchSynthesis} />
+                          <Image quality={90} sizes="220px" alt="Research synthesis" loading="lazy" decoding="async" className={s.layout20} src={researchSynthesis} />
                         </div>
                       </div>
                     </div>
@@ -443,7 +457,7 @@ export const tacki: CaseStudy = {
                 Home to search
               </p>
               <div className={s.demoMedia} data-node-id="865:2779" data-name="Image">
-                <iframe className={s.demoFrame} src="/tacki/home-to-search.html" title="Home to search animation" sandbox="allow-scripts" loading="lazy" />
+                <AnimationFrame className={s.demoFrame} src="/tacki/home-to-search.html" title="Home to search animation" sandbox="allow-scripts" loading="lazy" />
               </div>
             </div>
             <div className={s.demoSection} data-node-id="865:2787" data-name="Solution Title">
@@ -451,7 +465,7 @@ export const tacki: CaseStudy = {
                 Booking a listing
               </p>
               <div className={s.demoMedia} data-node-id="865:2789" data-name="Solution Title">
-                <iframe className={s.demoFrame} src="/tacki/booking-demo.html" title="Booking a listing animation" sandbox="allow-scripts" loading="lazy" />
+                <AnimationFrame className={s.demoFrame} src="/tacki/booking-demo.html" title="Booking a listing animation" sandbox="allow-scripts" loading="lazy" />
               </div>
             </div>
             <div className={s.demoSection} data-node-id="865:2796" data-name="Image">
@@ -459,7 +473,7 @@ export const tacki: CaseStudy = {
                 Messaging
               </p>
               <div className={s.demoMedia} data-node-id="865:2798" data-name="Image">
-                <iframe className={s.demoFrame} src="/tacki/messages.html?v=2" title="Tacki in-app messaging animation" sandbox="allow-scripts" />
+                <AnimationFrame className={s.demoFrame} src="/tacki/messages.html?v=2" title="Tacki in-app messaging animation" sandbox="allow-scripts" />
               </div>
             </div>
             <div className={s.demoSection} data-node-id="865:2793" data-name="Solution Title">
@@ -467,7 +481,7 @@ export const tacki: CaseStudy = {
                 Stats
               </p>
               <div className={s.demoMedia} data-node-id="865:2795" data-name="Solution Title">
-                <iframe className={s.demoFrame} src="/tacki/stats.html" title="Stats animation" sandbox="allow-scripts" loading="lazy" />
+                <AnimationFrame className={s.demoFrame} src="/tacki/stats.html" title="Stats animation" sandbox="allow-scripts" loading="lazy" />
               </div>
             </div>
             <div className={s.demoSection} data-node-id="865:2790" data-name="Image">
@@ -475,7 +489,7 @@ export const tacki: CaseStudy = {
                 Log in with .edu
               </p>
               <div className={s.demoMedia} data-node-id="865:2792" data-name="Image">
-                <iframe className={s.demoFrame} src="/tacki/login.html" title="Log in with .edu animation" sandbox="allow-scripts" loading="lazy" />
+                <AnimationFrame className={s.demoFrame} src="/tacki/login.html" title="Log in with .edu animation" sandbox="allow-scripts" loading="lazy" />
               </div>
             </div>
           </div>

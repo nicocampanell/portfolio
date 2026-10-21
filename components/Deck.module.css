@@ -75,7 +75,7 @@
 
   .track {
     height: auto;
-    zoom: calc((100vw - 2 * var(--inset)) / 896px);
+    zoom: var(--card-fit, 1);
   }
 
   .grid {

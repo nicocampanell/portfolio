@@ -27,38 +27,66 @@ export function CaseStudyShell({ children, ...props }: ComponentPropsWithoutRef<
     const nav = element.querySelector<HTMLElement>("[data-case-nav]");
     const crumb = element.querySelector<HTMLElement>("[data-crumb]");
     let frame = 0;
+    let range = 0;
+    let crumbBottom = 0;
+    let sectionTops: number[] = [];
+    let currentSection: string | undefined;
+    let navVisible: boolean | undefined;
+    let percentage = -1;
+    const desktop = matchMedia("(min-width: 1241px)");
+
     function update() {
       if (!element) return;
-      if (nav && crumb) {
-        const visible = crumb.getBoundingClientRect().bottom <= 32;
+      const scroll = element.scrollTop;
+      const visible = crumbBottom - scroll <= 32;
+      if (nav && visible !== navVisible) {
         nav.dataset.visible = String(visible);
-        nav.inert = !visible && matchMedia("(min-width: 1241px)").matches;
+        navVisible = visible;
       }
-      const range = element.scrollHeight - element.clientHeight;
-      const progress = range > 0 ? element.scrollTop / range : 0;
-      if (edge.current) edge.current.style.opacity = String(Math.min(1, Math.max(0, (range - element.scrollTop) / 160)));
+      const inert = !visible && desktop.matches;
+      if (nav && nav.inert !== inert) nav.inert = inert;
+      const progress = range > 0 ? scroll / range : 0;
+      if (edge.current) edge.current.style.opacity = String(Math.min(1, Math.max(0, (range - scroll) / 160)));
       if (fill.current) fill.current.style.transform = `scaleX(${progress})`;
-      bar.current?.setAttribute("aria-valuenow", String(Math.round(progress * 100)));
+      const nextPercentage = Math.round(progress * 100);
+      if (nextPercentage !== percentage) {
+        bar.current?.setAttribute("aria-valuenow", String(nextPercentage));
+        percentage = nextPercentage;
+      }
       let active = sections[0]?.id;
-      for (const section of sections) {
-        if (section.getBoundingClientRect().top <= 200) active = section.id;
-      }
-      for (const link of links) {
-        if (link.hash === `#${active}`) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
+      sectionTops.forEach((top, index) => {
+        if (top - scroll <= 200) active = sections[index].id;
+      });
+      if (active !== currentSection) {
+        for (const link of links) {
+          if (link.hash === `#${active}`) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        }
+        currentSection = active;
       }
     }
-    function onScroll() {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(update);
+    function schedule() {
+      if (!frame) frame = requestAnimationFrame(() => { frame = 0; update(); });
     }
-    update();
-    element.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    function measure() {
+      if (!element) return;
+      const origin = element.getBoundingClientRect().top - element.scrollTop;
+      range = element.scrollHeight - element.clientHeight;
+      crumbBottom = crumb ? crumb.getBoundingClientRect().bottom - origin : Infinity;
+      sectionTops = sections.map((section) => section.getBoundingClientRect().top - origin);
+      schedule();
+    }
+    measure();
+    const observer = new ResizeObserver(measure);
+    if (content.current) observer.observe(content.current);
+    observer.observe(element);
+    element.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", measure);
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(frame);
-      element.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      element.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", measure);
     };
   }, [reduce]);
 

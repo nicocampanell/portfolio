@@ -16,7 +16,7 @@ const sohne = localFont({
 });
 
 const sohneMono = localFont({
-  src: "../public/fonts/sohne-mono-buch.otf",
+  src: "../public/fonts/sohne-mono-buch.woff2",
   display: "swap",
   variable: "--font-sohne-mono",
   fallback: ["SFMono-Regular", "Menlo", "Consolas", "monospace"],

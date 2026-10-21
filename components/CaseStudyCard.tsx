@@ -1,3 +1,4 @@
+import { AnimationFrame } from "@/components/AnimationFrame";
 import type { CaseStudy } from "@/lib/case-study";
 import { Card } from "./Card";
 import { Panel } from "./Panel";
@@ -20,7 +21,8 @@ export function CaseStudyCard({ id, study }: Props) {
     <Card id={id} caption={study.caption}>
       <Panel as={TransitionLink} href={`/${study.slug}`} textured={false} className={`${s.screens} ${panel.link}`} data-cursor="case" aria-label={`View ${study.name} case study`} style={{ background: study.cover.background }}>
         {study.cover.type === "animation" ? (
-          <iframe
+          <AnimationFrame
+            eager
             className={s.preview}
             src={study.cover.src}
             title={study.cover.title}

@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useRef } from "react";
+import { type ReactNode, useLayoutEffect, useRef } from "react";
 import "lenis/dist/lenis.css";
 import { useCameraZoom } from "@/hooks/useCameraZoom";
 import { useCardFocus } from "@/hooks/useCardFocus";
@@ -21,6 +21,27 @@ export function Deck({ children }: { children: ReactNode }) {
   useCardFocus(trackRef, deckRef);
   const scrollTo = useLenisDeck(deckRef, trackRef);
   useDeckNav(deckRef, trackRef, scrollTo);
+
+  useLayoutEffect(() => {
+    const deck = deckRef.current;
+    const track = trackRef.current;
+    if (!deck || !track) return;
+
+    const fitCards = () => {
+      const deckStyle = getComputedStyle(deck);
+      const inset =
+        parseFloat(deckStyle.paddingInlineStart) + parseFloat(deckStyle.paddingInlineEnd);
+      const cardWidth = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--card"),
+      );
+      track.style.setProperty("--card-fit", String(Math.min(1, (deck.clientWidth - inset) / cardWidth)));
+    };
+
+    fitCards();
+    const observer = new ResizeObserver(fitCards);
+    observer.observe(deck);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>

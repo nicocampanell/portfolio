@@ -78,3 +78,9 @@ The caption, tags, cover, and destination come from the case study entry, so the
 ## Verify
 
 Run `npm run check` and `npm run build`. The checks catch duplicate routes and section IDs. Then preview the new page at desktop and mobile widths, check its sidebar links and homepage cover, and play its media.
+
+## Responsive screenshots and caching
+
+For before/after comparisons, prefer static image imports (for example, `import before from "@/public/my-project/before.webp"`). `IterationComparison` derives the correct dimensions and responsive sources from them. If using a string URL, supply `width` and `height` in that before/after entry.
+
+Keep content-fingerprinted files in `public/tacki/cached/` immutable. Their filenames contain the first 12 hexadecimal characters of SHA-256; replacing an image requires a new hash/filename and updated references. The checks enforce this rule. HTML files deliberately remain revalidatable.

@@ -3,14 +3,10 @@ import { zoomFromScroll } from "@/lib/zoom";
 import { useNarrow } from "./useNarrow";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
-/** Per-frame lerp toward the target; hand-tuned, do not round. */
 const EASE = 0.08;
 const SETTLE = 0.0004;
 
-/**
- * Drives the track (cards only) scale from deck scroll. Grid sits on the
- * unscaled scene sibling so zoom-out reveals more grid instead of clipping it.
- */
+/** Keep layout measurements out of the scroll/animation loop. */
 export function useCameraZoom(
   deckRef: RefObject<HTMLElement | null>,
   trackRef: RefObject<HTMLElement | null>,
@@ -24,7 +20,7 @@ export function useCameraZoom(
     if (!deck || !track) return;
 
     if (narrow || reduce) {
-      track.style.removeProperty("--s");
+      track.style.removeProperty("transform");
       track.style.removeProperty("transform-origin");
       return;
     }
@@ -33,37 +29,49 @@ export function useCameraZoom(
     let camTarget = 1;
     let ticking = false;
     let raf = 0;
+    let padding = 0;
+    let step = 1;
+    let center = innerWidth / 2;
 
     const origin = () => {
-      const pad = parseFloat(getComputedStyle(deck).paddingInlineStart);
-      track.style.transformOrigin = `${deck.scrollLeft + innerWidth / 2 - pad}px 50%`;
+      track.style.transformOrigin = `${deck.scrollLeft + center - padding}px 50%`;
     };
-
     const tick = () => {
-      ticking = true;
       cam += (camTarget - cam) * EASE;
       if (Math.abs(camTarget - cam) < SETTLE) cam = camTarget;
-      track.style.setProperty("--s", String(cam));
+      track.style.transform = `scale(${cam})`;
       origin();
       if (cam !== camTarget) raf = requestAnimationFrame(tick);
       else ticking = false;
     };
-
     const follow = () => {
-      const css = getComputedStyle(document.documentElement);
-      const step =
-        parseFloat(css.getPropertyValue("--card")) +
-        parseFloat(css.getPropertyValue("--gap"));
       camTarget = zoomFromScroll(deck.scrollLeft, step);
-      origin();
-      if (!ticking) raf = requestAnimationFrame(tick);
+      if (!ticking) {
+        ticking = true;
+        raf = requestAnimationFrame(tick);
+      }
+    };
+    const measure = () => {
+      const css = getComputedStyle(document.documentElement);
+      step = parseFloat(css.getPropertyValue("--card")) + parseFloat(css.getPropertyValue("--gap"));
+      padding = parseFloat(getComputedStyle(deck).paddingInlineStart);
+      center = innerWidth / 2;
+      follow();
     };
 
-    follow();
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(deck);
+    observer.observe(track);
+    window.addEventListener("resize", measure);
     deck.addEventListener("scroll", follow, { passive: true });
     return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
       deck.removeEventListener("scroll", follow);
       cancelAnimationFrame(raf);
+      track.style.removeProperty("transform");
+      track.style.removeProperty("transform-origin");
     };
   }, [deckRef, trackRef, narrow, reduce]);
 }

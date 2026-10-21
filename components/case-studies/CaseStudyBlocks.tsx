@@ -1,3 +1,4 @@
+import { AnimationFrame } from "@/components/AnimationFrame";
 import type { ReactNode } from "react";
 import s from "./CaseStudy.module.css";
 
@@ -33,7 +34,7 @@ export function CaseStudyMedia({ src, title, type = "image" }: {
   return (
     <figure className={s.media}>
       {type === "animation" ? (
-        <iframe src={src} title={title} sandbox="allow-scripts" loading="lazy" />
+        <AnimationFrame src={src} title={title} sandbox="allow-scripts" loading="lazy" />
       ) : (
         <img src={src} alt={title} loading="lazy" decoding="async" />
       )}
