@@ -1,7 +1,7 @@
 "use client";
 
-import { type ReactNode, useEffect, useRef } from "react";
-import { consumePageEnter, fadeInPage } from "@/lib/page-transition";
+import { type ReactNode, useLayoutEffect, useRef } from "react";
+import { enterPage } from "@/lib/page-transition";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 export function PageEnter({
@@ -14,11 +14,9 @@ export function PageEnter({
   const ref = useRef<HTMLDivElement>(null);
   const reduce = usePrefersReducedMotion();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || reduce) return;
-    const mode = consumePageEnter();
-    if (mode === "fade" || mode === "rise") void fadeInPage(el);
+    if (el) void enterPage(el, reduce);
   }, [reduce]);
 
   return (

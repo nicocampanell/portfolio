@@ -57,7 +57,7 @@ export function Deck({ children }: { children: ReactNode }) {
       </a>
       <ProgressBar barRef={barRef} fillRef={fillRef} />
       <div className={s.viewport}>
-        <main ref={deckRef} className={s.deck} tabIndex={0} aria-label="Portfolio">
+        <main ref={deckRef} className={s.deck} tabIndex={0} aria-label="Portfolio" data-page-reveal="0">
           <div className={s.scene}>
             {/* Grid stays on the unscaled scene so camera zoom only shrinks cards. */}
             <div className={s.grid} aria-hidden="true" />

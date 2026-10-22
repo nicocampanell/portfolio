@@ -40,12 +40,11 @@ export function TransitionLink({
     if (url.startsWith("http") || url.startsWith("mailto:")) return;
 
     event.preventDefault();
-    const enter = url === "/about" || url.startsWith("/about?") ? "rise" : "fade";
     void exitThen(mode, () => {
       startTransition(() => {
         router.push(url);
       });
-    }, enter);
+    }, "rise");
   }
 
   return (

@@ -1,3 +1,20 @@
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter="rise"] [data-page-reveal] {
+    animation: page-rise 340ms var(--ease-camera) both;
+  }
+
+  [data-enter="rise"] [data-page-reveal="1"] { animation-delay: 50ms; }
+  [data-enter="rise"] [data-page-reveal="2"] { animation-delay: 100ms; }
+  [data-enter="rise"] [data-page-reveal="3"] { animation-delay: 150ms; }
+  [data-enter="rise"] [data-page-reveal="4"] { animation-delay: 200ms; }
+  [data-enter="rise"] [data-page-reveal="5"] { animation-delay: 250ms; }
+}
+
+@keyframes page-rise {
+  from { opacity: 0; translate: 0 16px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
 :root {
   --accent: #fc671e;
   --cream: #faf9f7;

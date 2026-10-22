@@ -58,14 +58,12 @@
   white-space: nowrap;
 }
 
-.root[data-mode="case"] .dot,
-.root[data-mode="meet"] .dot {
+.root:not([data-mode="dot"]) .dot {
   opacity: 0;
   transform: translate(-50%, -50%) scale(1);
 }
 
-.root[data-mode="case"] .pill,
-.root[data-mode="meet"] .pill {
+.root:not([data-mode="dot"]) .pill {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }

@@ -4,7 +4,7 @@ import s from "./AboutPage.module.css";
 
 export function SiteFooter() {
   return (
-    <footer className={`${s.foot} ${s.rise}`} data-about-rest>
+    <footer className={s.foot} data-about-rest data-page-reveal="5">
       <div className={s.wordmark} aria-hidden="true">
         <img className={s.nico} src="/about/nico.svg" width={330} height={101} alt="" />
         <img

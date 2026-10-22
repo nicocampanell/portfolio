@@ -5,6 +5,10 @@
   border-radius: 16px;
 }
 
+.screens[data-case-study="tacki"] {
+  border-radius: 0;
+}
+
 .preview {
   position: absolute;
   inset: 0;

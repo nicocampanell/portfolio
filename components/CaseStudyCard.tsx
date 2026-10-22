@@ -19,7 +19,7 @@ export function BlankCaseStudyCard({ id }: { id: string }) {
 export function CaseStudyCard({ id, study }: Props) {
   return (
     <Card id={id} caption={study.caption}>
-      <Panel as={TransitionLink} href={`/${study.slug}`} textured={false} className={`${s.screens} ${panel.link}`} data-cursor="case" aria-label={`View ${study.name} case study`} style={{ background: study.cover.background }}>
+      <Panel as={TransitionLink} href={`/${study.slug}`} textured={false} className={`${s.screens} ${panel.link}`} data-case-study={study.slug} data-cursor="case" aria-label={`View ${study.name} case study`} style={{ background: study.cover.background }}>
         {study.cover.type === "animation" ? (
           <AnimationFrame
             eager

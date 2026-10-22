@@ -1,10 +1,10 @@
 "use client";
 
-import { type ComponentPropsWithoutRef, useEffect, useRef } from "react";
+import { type ComponentPropsWithoutRef, useEffect, useLayoutEffect, useRef } from "react";
 import "lenis/dist/lenis.css";
 import { useLenisVertical } from "@/hooks/useLenisVertical";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { consumePageEnter, fadeInPage } from "@/lib/page-transition";
+import { enterPage } from "@/lib/page-transition";
 import { ProgressBar } from "./ProgressBar";
 import s from "./CaseStudyShell.module.css";
 
@@ -17,10 +17,14 @@ export function CaseStudyShell({ children, ...props }: ComponentPropsWithoutRef<
   const reduce = usePrefersReducedMotion();
   const lenis = useLenisVertical(wrapper, content);
 
+  useLayoutEffect(() => {
+    const element = wrapper.current;
+    if (element) void enterPage(element, reduce);
+  }, [reduce]);
+
   useEffect(() => {
     const element = wrapper.current;
     if (!element) return;
-    if (consumePageEnter() && !reduce) void fadeInPage(element);
     const links = [...element.querySelectorAll<HTMLAnchorElement>('nav a[href^="#"]')];
     const sections = [...element.querySelectorAll<HTMLElement>("[data-section]")]
       .filter((section) => links.some((link) => link.hash === `#${section.id}`));
@@ -76,16 +80,21 @@ export function CaseStudyShell({ children, ...props }: ComponentPropsWithoutRef<
       sectionTops = sections.map((section) => section.getBoundingClientRect().top - origin);
       schedule();
     }
+    function onEntranceEnd(event: AnimationEvent) {
+      if (event.animationName === "page-rise") measure();
+    }
     measure();
     const observer = new ResizeObserver(measure);
     if (content.current) observer.observe(content.current);
     observer.observe(element);
     element.addEventListener("scroll", schedule, { passive: true });
+    element.addEventListener("animationend", onEntranceEnd);
     window.addEventListener("resize", measure);
     return () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
       element.removeEventListener("scroll", schedule);
+      element.removeEventListener("animationend", onEntranceEnd);
       window.removeEventListener("resize", measure);
     };
   }, [reduce]);

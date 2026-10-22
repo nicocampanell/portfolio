@@ -3,17 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./Cursor.module.css";
 
-type Mode = "dot" | "case" | "meet";
+type Mode = "dot" | "case" | "meet" | "nyc" | "tandem";
 
 const LABEL: Record<Exclude<Mode, "dot">, string> = {
   case: "View Case Study!",
   meet: "Meet Me!",
+  nyc: "Exploring NYC",
+  tandem: "Tandem biking in Stanley Park",
 };
 
 function modeFromTarget(t: EventTarget | null): Mode {
   const el = t instanceof Element ? t.closest("[data-cursor]") : null;
   const v = el?.getAttribute("data-cursor");
-  return v === "case" || v === "meet" ? v : "dot";
+  return v === "case" || v === "meet" || v === "nyc" || v === "tandem" ? v : "dot";
 }
 
 export function Cursor() {

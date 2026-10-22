@@ -1,9 +1,9 @@
 "use client";
 
-import { type ReactNode, useEffect, useRef } from "react";
+import { type ReactNode, useLayoutEffect, useRef } from "react";
 import { useLenisVertical } from "@/hooks/useLenisVertical";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { consumePageEnter, fadeInPage } from "@/lib/page-transition";
+import { enterPage } from "@/lib/page-transition";
 
 export function AboutShell({
   children,
@@ -18,15 +18,9 @@ export function AboutShell({
 
   useLenisVertical(wrapRef, contentRef);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = wrapRef.current;
-    if (!el || reduce) return;
-    const mode = consumePageEnter();
-    if (mode === "rise") {
-      el.dataset.enter = "rise";
-      return;
-    }
-    if (mode === "fade") void fadeInPage(el);
+    if (el) void enterPage(el, reduce);
   }, [reduce]);
 
   return (
