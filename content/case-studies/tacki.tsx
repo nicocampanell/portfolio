@@ -134,7 +134,7 @@ export const tacki: CaseStudy = {
               overview
             </p>
             <h1 className={s.sectionTitle} data-node-id="590:10">
-              Solo designing a 0-1 shipped solution to simplify how students receive and provided services between each other.
+              Solo designing a 0-1 shipped solution to simplify how students receive and provide services between each other.
             </h1>
             <ProjectTags tags={project.tags} />
           </div>
@@ -407,7 +407,7 @@ export const tacki: CaseStudy = {
               <h2 className={s.sectionTitle} data-node-id="601:414">
                 Ideation, iteration, addressing feedback
               </h2>
-              <p className={s.sectionBody} data-node-id="601:415">{`From the insights found from research I developed several mid-fi frames and conducted user testing to fully understand what are users needed/valued. `}</p>
+              <p className={s.sectionBody} data-node-id="601:415">{`From the insights found from research I developed several mid-fi frames and conducted user testing to fully understand what users needed and valued. `}</p>
             </div>
           </div>
           <div className={s.iterations} data-node-id="842:1479" data-name="Sidebar">

@@ -39,6 +39,19 @@ export function Cursor() {
     const draw = () => {
       raf = 0;
       el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+      el.style.visibility = "visible";
+    };
+
+    const hide = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      el.style.visibility = "hidden";
+    };
+    const onOut = (event: PointerEvent) => {
+      if (!event.relatedTarget) hide();
+    };
+    const onVisibility = () => {
+      if (document.hidden) hide();
     };
 
     const onMove = (e: PointerEvent) => {
@@ -52,11 +65,17 @@ export function Cursor() {
 
     addEventListener("pointermove", onMove, { passive: true });
     addEventListener("pointerover", onOver, { passive: true });
+    addEventListener("pointerout", onOut, { passive: true });
+    addEventListener("blur", hide);
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       cancelAnimationFrame(raf);
       removeEventListener("pointermove", onMove);
       removeEventListener("pointerover", onOver);
+      removeEventListener("pointerout", onOut);
+      removeEventListener("blur", hide);
+      document.removeEventListener("visibilitychange", onVisibility);
       delete document.documentElement.dataset.cursor;
     };
   }, []);

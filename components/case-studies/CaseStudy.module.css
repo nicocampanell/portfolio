@@ -246,4 +246,4 @@
 .media img { display: block; width: 100%; height: auto; }
 .media iframe { display: block; width: 100%; aspect-ratio: 1280 / 832; border: 0; }
 
-.shell[data-case-study="tacki"] { --case-radius: 0px; }
+.shell[data-case-study="tacki"] { --case-radius: 16px; }

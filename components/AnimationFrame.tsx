@@ -31,5 +31,6 @@ export function AnimationFrame({ src, eager = false, ...props }: ComponentPropsW
     };
   }, [eager]);
 
-  return <iframe {...props} ref={frame} src={active ? src : undefined} />;
+  // Autoplay walkthroughs must not capture the page's cursor or scrolling.
+  return <iframe tabIndex={-1} {...props} style={{ ...props.style, pointerEvents: "none" }} ref={frame} src={active ? src : undefined} />;
 }
