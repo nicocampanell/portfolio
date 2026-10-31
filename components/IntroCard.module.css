@@ -118,7 +118,7 @@
   left: 0;
   top: 42px;
   width: 369px;
-  height: 85px;
+  height: 127px;
   pointer-events: none;
   background: transparent;
 }
@@ -133,7 +133,7 @@
   font-weight: 400;
   line-height: 42px;
   letter-spacing: 0.18px;
-  text-wrap: pretty;
+  white-space: nowrap;
   background: transparent;
 }
 

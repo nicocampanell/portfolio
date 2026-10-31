@@ -8,10 +8,13 @@ import s from "./CaseStudyCard.module.css";
 
 type Props = { id: string; study: CaseStudy };
 
-export function BlankCaseStudyCard({ id }: { id: string }) {
+export function BlankCaseStudyCard({ id, src, caption = "", tags = [], cursor }: { id: string; src?: string; caption?: string; tags?: readonly string[]; cursor?: string }) {
   return (
-    <Card id={id} caption="">
-      <Panel textured={false} className={s.screens} aria-label="Future case study">{null}</Panel>
+    <Card id={id} caption={caption} cursor={cursor}>
+      <Panel textured={false} className={s.screens} aria-label={src ? "Lumen case study preview" : "Future case study"}>
+        {src ? <img className={s.preview} src={src} alt="Lumen app concept case study cover" loading="lazy" decoding="async" /> : null}
+        {tags.length > 0 && <span className={s.tags}>{tags.map((tag) => <span className={s.tag} key={tag}>{tag}</span>)}</span>}
+      </Panel>
     </Card>
   );
 }

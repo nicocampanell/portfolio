@@ -23,7 +23,7 @@ export function IterationComparison({ title, before, after, tallImages = false }
               <Image
                 width={"width" in state ? state.width : undefined}
                 height={"height" in state ? state.height : undefined}
-                quality={90}
+                quality={75}
                 sizes="(max-width: 540px) calc(100vw - 88px), (max-width: 640px) calc(100vw - 96px), (max-width: 768px) calc(100vw - 364px), 405px"
                 src={state.image}
                 alt={state.alt}

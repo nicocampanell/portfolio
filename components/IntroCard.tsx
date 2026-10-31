@@ -6,9 +6,6 @@ import s from "./IntroCard.module.css";
 const META =
   "made with figma, next.js & cursor - based in atx -  product designer - informatics @ ut austin";
 
-const BIO =
-  "An interdisciplinary designer crafting human products at the intersection of design, research, engineering, and AI driven by visual craft!";
-
 export function IntroCard() {
   return (
     <Card id="intro" caption="Intro" intro>
@@ -63,7 +60,12 @@ export function IntroCard() {
               alt=""
               aria-hidden="true"
             />
-            <p className={s.bio}>{BIO}</p>
+            <p className={s.bio}>
+              An interdisciplinary designer studying at UT<br />
+              Austin, crafting human products at the<br />
+              intersection of design, research, engineering,<br />
+              and AI driven by visual craft!
+            </p>
           </div>
         </div>
 

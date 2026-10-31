@@ -34,7 +34,7 @@ export default function Home() {
             case "contact":
               return <ContactCard key="contact" />;
             case "placeholder":
-              return <BlankCaseStudyCard key={card.id} id={card.id} />;
+              return <BlankCaseStudyCard key={card.id} id={card.id} src="/covers/lumen.webp" caption="Lumen: Making your body make sense." tags={["0-1 Design", "AI Prototyping", "AI Native Product", "Rapid Prototyping"]} cursor="soon" />;
           }
         })}
       </Deck>

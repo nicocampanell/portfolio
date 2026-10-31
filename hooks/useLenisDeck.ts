@@ -48,6 +48,7 @@ export function useLenisDeck(
       content,
       orientation: "horizontal",
       gestureOrientation: "both",
+      syncTouch: true,
       autoRaf: true,
       lerp: LERP,
     });

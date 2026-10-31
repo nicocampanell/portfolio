@@ -30,7 +30,7 @@ export function LetteringCard({ id, caption, art, variant, href }: Props) {
 
   const internal = href?.startsWith("/");
 
-  const cursor = variant === "about" ? "meet" : undefined;
+  const cursor = variant === "about" ? "meet" : "soon";
 
   return (
     <Card id={id} caption={caption} as={href ? "article" : "section"} labelled={!href}>

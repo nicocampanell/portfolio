@@ -59,7 +59,6 @@ export function Deck({ children }: { children: ReactNode }) {
       <div className={s.viewport}>
         <main ref={deckRef} className={s.deck} tabIndex={0} aria-label="Portfolio" data-page-reveal="0">
           <div className={s.scene}>
-            {/* Grid stays on the unscaled scene so camera zoom only shrinks cards. */}
             <div className={s.grid} aria-hidden="true" />
             <div ref={trackRef} className={s.track}>
               {children}

@@ -16,14 +16,12 @@ export const cards: Card[] = [
   { kind: "intro" },
   { kind: "case-study", id: "tacki-1", slug: "tacki" },
   { kind: "placeholder", id: "project-2" },
-  { kind: "placeholder", id: "project-3" },
   {
     kind: "lettering",
     id: "playground",
     caption: "Playground",
     art: "/lettering/playground.svg",
     variant: "playground",
-    href: "/cell-form.html",
   },
   {
     kind: "lettering",
