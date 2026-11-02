@@ -35,6 +35,7 @@ export function PostcardOpening({ children }: { children: ReactNode }) {
     let stopFold = () => {};
     let finished = false;
     let revealTimer: number | undefined;
+    let originFrame = 0;
     const animations: Animation[] = [];
     delete shell.dataset.complete;
     folds.style.setProperty("--ball-size", `${Math.min(width, height) * 0.15}px`);
@@ -60,16 +61,24 @@ export function PostcardOpening({ children }: { children: ReactNode }) {
       return piece;
     });
     shell.dataset.unfolding = "";
-    const bounds = shell.getBoundingClientRect();
-    const rotation = parseFloat(getComputedStyle(shell).rotate) || 0;
-    const origin = new DOMMatrix().rotate(-rotation).transformPoint(new DOMPoint(
-      innerWidth / 2 - (bounds.left + bounds.width / 2),
-      innerHeight / 2 - (bounds.top + bounds.height / 2),
-    ));
-    animations.push(folds.animate([
-      { opacity: 0.35, transform: `translate(${origin.x}px, ${origin.y}px)` },
-      { opacity: 1, transform: "translate(0, 0)" },
-    ], { duration, easing: foldEasing, fill: "both" }));
+    originFrame = requestAnimationFrame(() => {
+      if (finished) return;
+      const bounds = shell.getBoundingClientRect();
+      let zoom = 1;
+      for (let element: HTMLElement | null = shell; element; element = element.parentElement) {
+        const value = parseFloat(getComputedStyle(element).zoom);
+        if (Number.isFinite(value) && value > 0) zoom *= value;
+      }
+      const rotation = parseFloat(getComputedStyle(shell).rotate) || 0;
+      const origin = new DOMMatrix().rotate(-rotation).transformPoint(new DOMPoint(
+        (innerWidth / 2 - (bounds.left + bounds.width / 2)) / zoom,
+        (innerHeight / 2 - (bounds.top + bounds.height / 2)) / zoom,
+      ));
+      animations.push(folds.animate([
+        { opacity: 0.35, transform: `translate(${origin.x}px, ${origin.y}px)` },
+        { opacity: 1, transform: "translate(0, 0)" },
+      ], { duration, easing: foldEasing, fill: "both" }));
+    });
 
     const reveal = () => {
       shell.dataset.revealing = "";
@@ -116,6 +125,7 @@ export function PostcardOpening({ children }: { children: ReactNode }) {
     return () => {
       window.removeEventListener("resize", finish);
       reduced.removeEventListener("change", finish);
+      cancelAnimationFrame(originFrame);
       finish();
       window.clearTimeout(revealTimer);
       folds.replaceChildren();

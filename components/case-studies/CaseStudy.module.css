@@ -178,7 +178,27 @@
   .insights > div { width: 100%; }
   .main { width: calc(100% - 40px); }
   .contactCallout { align-items: flex-start; flex-direction: column; }
-  .shell [data-node-id="771:72"] { height: auto; aspect-ratio: 767 / 402; }
+  .researchImages > div { height: auto; aspect-ratio: 675 / 428; }
+  .imageColumn,
+  .imageColumn2,
+  .imageColumn3 { height: auto; aspect-ratio: 675 / 392; padding: 3.55%; overflow: hidden; }
+  .imageContainer { position: relative; display: block; width: 100%; height: auto; aspect-ratio: 643 / 344; }
+  .layout10,
+  .layout13 { position: absolute; margin: 0; }
+  .layout10 { inset: 0 auto auto 0; width: 62.67%; height: 62.97%; }
+  .layout13 { inset: 34.83% auto auto 36.67%; width: 63.3%; height: 65.17%; }
+  .layout11,
+  .layout14 { width: 100%; height: 100%; }
+  .image3,
+  .image4 { width: 100%; height: 100%; }
+  .screen { width: 63.56%; height: 90.3%; }
+  .layout15 { left: 4.29%; top: 4.63%; width: 62.08%; height: 72.87%; }
+  .layout17 { left: 53.72%; top: 23.03%; width: 43%; height: 69.25%; }
+  .layout16,
+  .layout18 { width: 100%; height: 100%; }
+  .screen2 { width: 96.2%; height: 91%; }
+  .screen3 { width: 92.1%; height: 86.2%; }
+  .shell [data-node-id="771:72"] { height: auto; aspect-ratio: 16 / 10; }
 }
 
 /* Current Figma typography and spacing. */

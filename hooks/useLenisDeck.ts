@@ -3,6 +3,7 @@ import Snap from "lenis/snap";
 import { type RefObject, useCallback, useEffect, useRef } from "react";
 import { CAMERA_S, cameraEase } from "@/lib/ease";
 import { cardScrollPos } from "@/lib/snap";
+import { useNarrow } from "./useNarrow";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 const LERP = 0.14;
@@ -17,6 +18,7 @@ export function useLenisDeck(
 ) {
   const lenisRef = useRef<Lenis | null>(null);
   const reduce = usePrefersReducedMotion();
+  const narrow = useNarrow();
 
   const scrollTo = useCallback(
     (card: HTMLElement | null) => {
@@ -27,18 +29,18 @@ export function useLenisDeck(
       const delta = pos - current;
       const lenis = lenisRef.current;
 
-      if (lenis && !reduce) {
+      if (lenis && !reduce && !narrow) {
         lenis.scrollTo(lenis.scroll + delta, { duration: CAMERA_S, easing: cameraEase });
         return;
       }
       if (!wrapper) return;
       wrapper.scrollTo({ left: wrapper.scrollLeft + delta, behavior: reduce ? "auto" : "smooth" });
     },
-    [reduce, wrapperRef],
+    [narrow, reduce, wrapperRef],
   );
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || narrow) return;
     const wrapper = wrapperRef.current;
     const content = contentRef.current;
     if (!wrapper || !content) return;
@@ -77,7 +79,7 @@ export function useLenisDeck(
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [wrapperRef, contentRef, reduce]);
+  }, [wrapperRef, contentRef, narrow, reduce]);
 
   return scrollTo;
 }

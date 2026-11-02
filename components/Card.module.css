@@ -74,6 +74,7 @@
   .card {
     --focus-zoom: 1;
     --focus-clear: calc((var(--focus-zoom) - 1) * 0.5 * var(--card));
+    scroll-snap-align: start;
   }
 
   .intro,

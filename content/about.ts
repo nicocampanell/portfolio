@@ -6,7 +6,7 @@ export const ABOUT_BIO = [
 export const EXPERIENCE = [
   { org: "Longhorn Developers", role: "ux designer", when: "current" },
   { org: "Leadership Austin", role: "lead product designer", when: "current" },
-  { org: "Nerava", role: "product engineer", when: "current" },
+  { org: "Nerava", role: "product designer", when: "current" },
   { org: "Texas Product Engineering Org", role: "design fellow", when: "current" },
   { org: "Texas Wranglers", role: "public relations & marketing chair", when: "current" },
   { org: "Develop For Good", role: "product designer", when: "summer 2026" },

@@ -30,7 +30,11 @@ export function ProblemConversation() {
     const thread = threadRef.current;
     if (!container || !stage || !thread) return;
 
-    const fit = () => { stage.style.transform = `scale(${container.clientWidth / 1280})`; };
+    const fit = () => {
+      stage.style.transform = matchMedia("(max-width: 540px)").matches
+        ? "none"
+        : `scale(${container.clientWidth / 1280})`;
+    };
     fit();
     const resize = new ResizeObserver(fit);
     resize.observe(container);

@@ -18,14 +18,23 @@ export const POSTCARD_FACES: Face[] = Array.from({ length: 12 }, (_, i) => {
   return i % 2 ? [[a, b, c], [b, d, c]] as Face[] : [[a, b, d], [a, d, c]] as Face[];
 }).flat();
 
+const foldedCenter = POSTCARD_FACES.flat().reduce<[number, number]>((center, [x, y]) => {
+  const longitude = x * Math.PI * 3 + y * 0.7;
+  const latitude = 0.2 + y * 3.8;
+  const ridge = 0.65 + 0.35 * Math.sin(x * 29 + y * 17);
+  center[0] += Math.sin(latitude) * Math.cos(longitude) * ridge;
+  center[1] -= Math.cos(latitude) * ridge;
+  return center;
+}, [0, 0]).map(value => value / (POSTCARD_FACES.length * 3)) as [number, number];
+
 function unfold([x, y]: Point, progress: number, width: number, height: number) {
   const folded = 1 - progress;
   const radius = Math.min(width, height) * 0.075;
   const longitude = x * Math.PI * 3 + y * 0.7;
   const latitude = 0.2 + y * 3.8;
   const ridge = 0.65 + 0.35 * Math.sin(x * 29 + y * 17);
-  const bx = radius * Math.sin(latitude) * Math.cos(longitude) * ridge;
-  const by = -radius * Math.cos(latitude) * ridge;
+  const bx = radius * (Math.sin(latitude) * Math.cos(longitude) * ridge - foldedCenter[0]);
+  const by = radius * (-Math.cos(latitude) * ridge - foldedCenter[1]);
   const z = radius * Math.sin(latitude) * Math.sin(longitude) * folded;
   const px = bx * folded + (x - 0.5) * width * progress;
   const py = by * folded + (y - 0.5) * height * progress;
