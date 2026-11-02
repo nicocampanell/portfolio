@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
       headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
     }];
   },
+  async rewrites() {
+    return {
+      // /run is the static Workout Equalizer build in public/run; beforeFiles so
+      // the [caseStudy] route doesn't claim it.
+      beforeFiles: [{ source: "/run", destination: "/run/index.html" }],
+    };
+  },
   images: {
     // Next 16 requires an explicit allowlist; 90 is for the alpha lettering and
     // stamps, whose thin glyph edges fringe at the default 75.
