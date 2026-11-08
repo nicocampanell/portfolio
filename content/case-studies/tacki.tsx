@@ -289,7 +289,7 @@ export const tacki: CaseStudy = {
               </ol>
             </div>
           </div>
-          <ResearchArtifacts labels={["Journey mapping", "Competitive analysis", "Interviews"]}>
+          <ResearchArtifacts labels={["Journey mapping", "Competitive analysis", "Interviews", "Field Study"]}>
               <div className={s.imageColumn} data-node-id="592:359" data-name="Image Column">
                 <div className={s.imageContainer} data-node-id="592:360" data-name="Image Container">
                   <div className={s.layout10} data-node-id="592:361">
@@ -336,6 +336,10 @@ export const tacki: CaseStudy = {
                   </div>
                 </div>
                 <p className={s.researchCaption}>Interviews</p>
+              </div>
+              <div className={s.imageColumn2}>
+                <Image src="/tacki/field-study.png" alt="Field study of a student haircut service" width={1086} height={1448} className={s.fieldStudyPhoto} />
+                <p className={s.researchCaption}>Field Study</p>
               </div>
           </ResearchArtifacts>
           <p className={s.researchSummary} data-node-id="596:406">

@@ -137,6 +137,7 @@
 .researchImages { width: max-content; }
 .researchImages > div { width: min(675px, calc(100vw - 48px)); height: 428px; overflow: hidden; scroll-snap-align: start; }
 .researchCaption { position: absolute; right: 24px; bottom: 16px; left: 24px; color: #635d58; font: 400 14px/20px var(--font); letter-spacing: .14px; }
+.fieldStudyPhoto { width: 100%; height: calc(100% - 28px); object-fit: contain; }
 .researchPills { display: flex; gap: 4px; align-items: center; justify-content: center; }
 .researchPills button { position: relative; display: grid; place-items: center; width: 26px; height: 28px; padding: 0; border: 0; border-radius: 999px; background: transparent; cursor: pointer; }
 .researchPills button::before { content: ""; display: block; width: 20px; height: 5px; border-radius: 999px; background: #ded7ce; }
